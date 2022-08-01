@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqupt.tutorselectionsystem.student.mapper.StudentMapper">
+
+    <resultMap id="BaseResultMap" type="com.cqupt.tutorselectionsystem.student.domain.Student">
+            <id property="studentId" column="student_id" jdbcType="BIGINT"/>
+            <result property="accountNumber" column="account_number" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="realname" column="realname" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="telephone" column="telephone" jdbcType="VARCHAR"/>
+            <result property="classId" column="class_id" jdbcType="BIGINT"/>
+            <result property="className" column="class_name" jdbcType="VARCHAR"/>
+            <result property="hasTutor" column="has_tutor" jdbcType="VARCHAR"/>
+            <result property="address" column="address" jdbcType="VARCHAR"/>
+            <result property="hasScienceClass" column="has_science_class" jdbcType="TINYINT"/>
+            <result property="token" column="token" jdbcType="VARCHAR"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        student_id,account_number,password,
+        realname,email,telephone,
+        class_id,class_name,has_tutor,
+        address,has_science_class,token,
+        is_deleted
+    </sql>
+</mapper>
