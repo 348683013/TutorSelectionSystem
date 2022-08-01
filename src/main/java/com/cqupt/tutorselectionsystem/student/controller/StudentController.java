@@ -48,21 +48,19 @@ public class StudentController {
     }
 
     //根据token查询学生用户信息，这个token是从请求头中进行传过来的
-    @PostMapping(path = "/getStudentByToken")
+    @PostMapping(path = "/findStudentByToken")
     @ResponseBody
     public ResultMsg getStudentByToken(HttpSession session, HttpServletRequest request) {
         String token = request.getHeader("token"); //从请求头中获取这个token的值
-        System.out.println(token);
+        //System.out.println("============"+token);
         //先从session中取这个用户信息
         Student student = (Student) session.getAttribute(token);
-        if (student != null) {
-            return ResultMsg.success().add("studentInfo", student);
-        } else {
+        if (student == null) {
             //当session中没有这个用户的时候再进行查询
             LambdaQueryWrapper<Student> queryWrapper = new LambdaQueryWrapper<>();
             queryWrapper.eq(Student::getToken, token);
             student = studentService.getOne(queryWrapper);
-            return ResultMsg.success().add("studentInfo", student);
         }
+        return ResultMsg.success().add("studentInfo", student);
     }
 }

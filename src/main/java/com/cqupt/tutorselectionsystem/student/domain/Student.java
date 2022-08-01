@@ -54,7 +54,7 @@ public class Student implements Serializable {
     private String className;
 
     /**
-     * 是否有导师，没有发送请求为0，已发送请求为1，有导师就是导师id
+     * 是否有导师，没有导师为0，有导师就是导师姓名
      */
     private String hasTutor;
 
