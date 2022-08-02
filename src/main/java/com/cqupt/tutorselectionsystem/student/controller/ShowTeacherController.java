@@ -38,15 +38,27 @@ public class ShowTeacherController {
         //条件
         LambdaQueryWrapper<Teacher> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.like(Teacher::getRealname, nameKeyWord);
-        Page<Teacher> teachers = teacherService.page(page, lambdaQueryWrapper);
+        Page<Teacher> teachersPage = teacherService.page(page, lambdaQueryWrapper);
 
         //取出teachers中的List<T> records
-        List<Teacher> records = teachers.getRecords();
-        for (Teacher record : records) {
+        List<Teacher> records = teachersPage.getRecords();
+        /*for (Teacher record : records) {
             record.setAccountNumber("");
             record.setPassword("");
         }
+        teachersPage.setRecords(records);*/
 
-        return ResultMsg.success().add("teachers", teachers);
+        //想把ShowAllTeacherDTO的list传过去，而不是传Teacher的list
+        List<ShowAllTeacherDTO> showAllTeacherDTOList = new ArrayList<>();
+        for (Teacher teacher : records) {
+            ShowAllTeacherDTO showAllTeacherDTO = new ShowAllTeacherDTO();
+            BeanUtils.copyProperties(teacher, showAllTeacherDTO);
+            showAllTeacherDTOList.add(showAllTeacherDTO);
+        }
+        Page<ShowAllTeacherDTO> showAllTeacherDTOPage = new Page<>();
+        BeanUtils.copyProperties(teachersPage,showAllTeacherDTOPage);
+        showAllTeacherDTOPage.setRecords(showAllTeacherDTOList);
+
+        return ResultMsg.success().add("teachersInfo", showAllTeacherDTOPage);
     }
 }
