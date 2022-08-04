@@ -69,4 +69,7 @@ public class ShowAllTeacherDTO {
      */
     private Date birthday;
 
+    //年龄
+    private String age;
+
 }

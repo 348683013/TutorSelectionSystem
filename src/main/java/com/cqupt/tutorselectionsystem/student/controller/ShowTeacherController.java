@@ -6,6 +6,7 @@ import com.cqupt.tutorselectionsystem.student.domain.Teacher;
 import com.cqupt.tutorselectionsystem.student.dto.ShowAllTeacherDTO;
 import com.cqupt.tutorselectionsystem.student.service.StudentService;
 import com.cqupt.tutorselectionsystem.student.service.TeacherService;
+import com.cqupt.tutorselectionsystem.student.utils.CalculateAge;
 import com.cqupt.tutorselectionsystem.student.utils.ResultMsg;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,9 @@ public class ShowTeacherController {
         for (Teacher teacher : records) {
             ShowAllTeacherDTO showAllTeacherDTO = new ShowAllTeacherDTO();
             BeanUtils.copyProperties(teacher, showAllTeacherDTO);
+            //根据生日计算每个老师的年龄
+            Integer age = CalculateAge.getAge(teacher.getBirthday());
+            showAllTeacherDTO.setAge(age.toString());
             showAllTeacherDTOList.add(showAllTeacherDTO);
         }
         Page<ShowAllTeacherDTO> showAllTeacherDTOPage = new Page<>();
