@@ -71,7 +71,9 @@ public class ShowTeacherController {
     @RequestMapping(path = "/findAllTeachersBySex")
     @ResponseBody
     public ResultMsg findAllTeachersBySex(@RequestBody ShowTeacherSearchDTO showTeacherSearchDTO) {
-        if (!(showTeacherSearchDTO.getSexKeyWord().equals("男") || showTeacherSearchDTO.getSexKeyWord().equals("女"))) {
+        if (showTeacherSearchDTO.getSexKeyWord().equals("")) {
+            return ResultMsg.fail().add("errorMsg", "输入内容不能为空！");
+        } else if (!(showTeacherSearchDTO.getSexKeyWord().equals("男") || showTeacherSearchDTO.getSexKeyWord().equals("女"))) {
             return ResultMsg.fail().add("errorMsg", "关键字输入有误！");
         }
 
