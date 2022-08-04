@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cqupt.tutorselectionsystem.student.domain.Teacher;
 import com.cqupt.tutorselectionsystem.student.dto.ShowAllTeacherDTO;
+import com.cqupt.tutorselectionsystem.student.dto.ShowTeacherSearchDTO;
 import com.cqupt.tutorselectionsystem.student.service.StudentService;
 import com.cqupt.tutorselectionsystem.student.service.TeacherService;
 import com.cqupt.tutorselectionsystem.student.utils.CalculateAge;
@@ -11,11 +12,9 @@ import com.cqupt.tutorselectionsystem.student.utils.ResultMsg;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,14 +30,16 @@ public class ShowTeacherController {
 
     @RequestMapping(path = "/findAllTeachers")
     @ResponseBody
-    public ResultMsg findAllTeachers(@RequestParam(value = "limit", defaultValue = "8") Integer limit,
+    public ResultMsg findAllTeachers(/*@RequestParam(value = "limit", defaultValue = "8") Integer limit,
                                      @RequestParam(value = "page", defaultValue = "1") Integer pc,
-                                     @RequestParam(value = "nameKeyWord", defaultValue = "") String nameKeyWord) {
+                                     @RequestParam(value = "nameKeyWord", defaultValue = "") String nameKeyWord*/
+            @RequestBody ShowTeacherSearchDTO showTeacherSearchDTO
+    ) {
 
-        Page<Teacher> page = new Page<>(pc, limit);
+        Page<Teacher> page = new Page<>(showTeacherSearchDTO.getPage(), showTeacherSearchDTO.getLimit());
         //条件
         LambdaQueryWrapper<Teacher> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.like(Teacher::getRealname, nameKeyWord);
+        lambdaQueryWrapper.like(Teacher::getRealname, showTeacherSearchDTO.getNameKeyWord());
         Page<Teacher> teachersPage = teacherService.page(page, lambdaQueryWrapper);
 
         //取出teachers中的List<T> records
@@ -60,7 +61,7 @@ public class ShowTeacherController {
             showAllTeacherDTOList.add(showAllTeacherDTO);
         }
         Page<ShowAllTeacherDTO> showAllTeacherDTOPage = new Page<>();
-        BeanUtils.copyProperties(teachersPage,showAllTeacherDTOPage);
+        BeanUtils.copyProperties(teachersPage, showAllTeacherDTOPage);
         showAllTeacherDTOPage.setRecords(showAllTeacherDTOList);
 
         return ResultMsg.success().add("teachersInfo", showAllTeacherDTOPage);
