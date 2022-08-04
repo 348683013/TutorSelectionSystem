@@ -66,4 +66,40 @@ public class ShowTeacherController {
 
         return ResultMsg.success().add("teachersInfo", showAllTeacherDTOPage);
     }
+
+    //根据性别查找
+    @RequestMapping(path = "/findAllTeachersBySex")
+    @ResponseBody
+    public ResultMsg findAllTeachersBySex(@RequestBody ShowTeacherSearchDTO showTeacherSearchDTO) {
+        if (!(showTeacherSearchDTO.getSexKeyWord().equals("男") || showTeacherSearchDTO.getSexKeyWord().equals("女"))) {
+            return ResultMsg.fail().add("errorMsg", "关键字输入有误！");
+        }
+
+        Page<Teacher> page = new Page<>(showTeacherSearchDTO.getPage(), showTeacherSearchDTO.getLimit());
+        //条件
+        LambdaQueryWrapper<Teacher> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        //接收过来的性别
+        String sex = showTeacherSearchDTO.getSexKeyWord();
+        lambdaQueryWrapper.eq(Teacher::getSex, sex.equals("男") ? 0 : 1);
+        Page<Teacher> teachersPage = teacherService.page(page, lambdaQueryWrapper);
+
+        //取出teachers中的List<T> records
+        List<Teacher> records = teachersPage.getRecords();
+
+        //想把ShowAllTeacherDTO的list传过去，而不是传Teacher的list
+        List<ShowAllTeacherDTO> showAllTeacherDTOList = new ArrayList<>();
+        for (Teacher teacher : records) {
+            ShowAllTeacherDTO showAllTeacherDTO = new ShowAllTeacherDTO();
+            BeanUtils.copyProperties(teacher, showAllTeacherDTO);
+            //根据生日计算每个老师的年龄
+            Integer age = CalculateAge.getAge(teacher.getBirthday());
+            showAllTeacherDTO.setAge(age.toString());
+            showAllTeacherDTOList.add(showAllTeacherDTO);
+        }
+        Page<ShowAllTeacherDTO> showAllTeacherDTOPage = new Page<>();
+        BeanUtils.copyProperties(teachersPage, showAllTeacherDTOPage);
+        showAllTeacherDTOPage.setRecords(showAllTeacherDTOList);
+
+        return ResultMsg.success().add("teachersInfo", showAllTeacherDTOPage);
+    }
 }
