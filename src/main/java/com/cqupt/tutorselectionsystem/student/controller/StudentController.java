@@ -1,9 +1,13 @@
 package com.cqupt.tutorselectionsystem.student.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.cqupt.tutorselectionsystem.student.domain.Round;
 import com.cqupt.tutorselectionsystem.student.domain.Student;
+import com.cqupt.tutorselectionsystem.student.dto.RoundInfoDTO;
+import com.cqupt.tutorselectionsystem.student.service.RoundService;
 import com.cqupt.tutorselectionsystem.student.service.StudentService;
 import com.cqupt.tutorselectionsystem.student.utils.ResultMsg;
+import com.cqupt.tutorselectionsystem.student.utils.TimeUtil;
 import com.cqupt.tutorselectionsystem.student.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +24,9 @@ import java.util.Map;
 public class StudentController {
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private RoundService roundService;
 
     //学生用户登录
     @RequestMapping(path = "/StudentLogin")
@@ -61,6 +68,23 @@ public class StudentController {
             queryWrapper.eq(Student::getToken, token);
             student = studentService.getOne(queryWrapper);
         }
-        return ResultMsg.success().add("studentInfo", student);
+
+
+        //得到现在是第几轮选择导师
+        LambdaQueryWrapper<Round> roundLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        roundLambdaQueryWrapper.eq(Round::getIsStart, 1);
+        Round round = roundService.getOne(roundLambdaQueryWrapper);
+        String roundInfo = "";
+        RoundInfoDTO roundInfoDTO = new RoundInfoDTO();
+        if (round == null) {
+            roundInfo = "系统尚未开启！";
+        } else {
+            roundInfoDTO.setRoundId(round.getRoundId());//id
+            String roundName = round.getName().replace("-", "年度第") + "轮";
+            roundInfoDTO.setName(roundName);//第几轮
+            String stopTime = TimeUtil.formatDateByPattern(round.getStopTime(), "yyyy-MM-dd HH:mm:ss");
+            roundInfoDTO.setStopTime(stopTime);
+        }
+        return ResultMsg.success().add("studentInfo", student).add("roundInfo", round == null ? roundInfo : roundInfoDTO);
     }
 }

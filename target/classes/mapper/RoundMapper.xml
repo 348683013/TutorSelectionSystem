@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqupt.tutorselectionsystem.student.mapper.RoundMapper">
+
+    <resultMap id="BaseResultMap" type="com.cqupt.tutorselectionsystem.student.domain.Round">
+            <id property="roundId" column="round_id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="isStart" column="is_start" jdbcType="TINYINT"/>
+            <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
+            <result property="stopTime" column="stop_time" jdbcType="TIMESTAMP"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        round_id,name,is_start,
+        start_time,stop_time,is_deleted
+    </sql>
+</mapper>
