@@ -1,9 +1,11 @@
 package com.cqupt.tutorselectionsystem.student.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.cqupt.tutorselectionsystem.student.domain.Requests;
 import com.cqupt.tutorselectionsystem.student.domain.Round;
 import com.cqupt.tutorselectionsystem.student.domain.Student;
 import com.cqupt.tutorselectionsystem.student.dto.RoundInfoDTO;
+import com.cqupt.tutorselectionsystem.student.service.RequestsService;
 import com.cqupt.tutorselectionsystem.student.service.RoundService;
 import com.cqupt.tutorselectionsystem.student.service.StudentService;
 import com.cqupt.tutorselectionsystem.student.utils.ResultMsg;
@@ -27,6 +29,9 @@ public class StudentController {
 
     @Autowired
     private RoundService roundService;
+
+    @Autowired
+    private RequestsService requestsService;
 
     //学生用户登录
     @RequestMapping(path = "/StudentLogin")
@@ -87,6 +92,21 @@ public class StudentController {
             String stopTime = TimeUtil.formatDateByPattern(round.getStopTime(), "yyyy-MM-dd HH:mm:ss");
             roundInfoDTO.setStopTime(stopTime);
         }
-        return ResultMsg.success().add("studentInfo", student).add("roundInfo", round == null ? roundInfo : roundInfoDTO);
+
+        //得到这个学生给哪些老师发送过请求
+        LambdaQueryWrapper<Requests> requestsLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        requestsLambdaQueryWrapper.eq(Requests::getStudentId, student.getStudentId());
+        List<Requests> requestsList = requestsService.list(requestsLambdaQueryWrapper);
+        //我们只需要里面的teacherIds
+        Integer[] teacherIds=new Integer[requestsList.size()];
+        for (int i = 0; i < requestsList.size(); i++) {
+            Integer teacherId = requestsList.get(i).getTeacherId();
+            teacherIds[i] = teacherId;
+        }
+
+        return ResultMsg.success()
+                .add("studentInfo", student)
+                .add("roundInfo", round == null ? roundInfo : roundInfoDTO)
+                .add("teacherIds", teacherIds);
     }
 }

@@ -80,20 +80,47 @@ public class ChoiceTeacherController {
                                  HttpSession session) {
         //得到登录状态的学生信息
         String token = request.getHeader("token"); //从请求头中获取这个token的值
-        Student student = (Student) session.getAttribute(token);
-        if (student == null) {
-            //当session中没有这个用户的时候再进行查询
-            LambdaQueryWrapper<Student> queryWrapper = new LambdaQueryWrapper<>();
-            queryWrapper.eq(Student::getToken, token);
-            student = studentService.getOne(queryWrapper);
-            //查询出来之后再次放入session
-            session.setAttribute(token, student);
-        }
+        LambdaQueryWrapper<Student> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Student::getToken, token);
+        Student student = studentService.getOne(queryWrapper);
+        //查询出来之后再次放入session
+        session.setAttribute(token, student);
         //得到第几轮id
         Long roundId = requestDTO.getRoundId();
-
-        //得到老师id的int数组
+        //得到发送过来老师id的int数组
         Integer[] teacherIds = requestDTO.getCheckId();
+
+        //判断这个人是否已经有导师了
+        if (!student.getHasTutor().equals("0")) {
+            return ResultMsg.fail().add("errorMsg", "该学生已有导师，禁止申请！");
+        }
+
+        //判断发送过来的id数组是否大于5
+        if (teacherIds.length > 5 || teacherIds.length <= 0) {
+            return ResultMsg.fail().add("errorMsg", "请求数量异常！");
+        }
+
+        //判断是否是重复发送请求，同时判断是否还剩名额，
+        //先获得这个学生发送过得所有请求list
+        LambdaQueryWrapper<Requests> requestsLambdaQueryWrapper1 = new LambdaQueryWrapper<>();
+        requestsLambdaQueryWrapper1.eq(Requests::getStudentId, student.getStudentId());
+        List<Requests> requestsList1 = requestsService.list(requestsLambdaQueryWrapper1);
+        //如果总请求数大于5则抛错
+        if (requestsList1.size() + teacherIds.length > 5) {
+            return ResultMsg.fail().add("errorMsg", "本轮你还剩" + (5 - requestsList1.size()) + "次发送请求机会！");
+        }
+        //判断是否有重复发送
+        //得到发送过的老师的id的list
+        List<Integer> teacherIdList = new ArrayList<>();
+        for (Requests requests : requestsList1) {
+            teacherIdList.add(requests.getTeacherId());
+        }
+        for (Integer teacherId : teacherIds) {
+            if (teacherIdList.contains(teacherId)) {
+                return ResultMsg.fail().add("errorMsg", "存在给同一导师发送多次请求！");
+            }
+        }
+
         List<Requests> requestsList = new ArrayList<>();
         //把所有的请求进行封装
         for (Integer teacherId : teacherIds) {
