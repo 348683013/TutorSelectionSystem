@@ -67,6 +67,8 @@ public class StudentController {
             LambdaQueryWrapper<Student> queryWrapper = new LambdaQueryWrapper<>();
             queryWrapper.eq(Student::getToken, token);
             student = studentService.getOne(queryWrapper);
+            //查询出来之后再次放入session
+            session.setAttribute(token, student);
         }
 
 
