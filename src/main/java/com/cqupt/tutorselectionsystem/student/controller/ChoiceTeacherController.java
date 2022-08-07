@@ -72,6 +72,8 @@ public class ChoiceTeacherController {
         return ResultMsg.success().add("teachers", hasSpareTeacherDTOS).add("stopTime", stopTimeStr);
     }
 
+    //第一、二轮选择导师
+    //在第二轮中，第一轮导师没有同意的，除了已经拒绝的，要把未处理的（即状态为0）的设置成拒绝（即设置成状态为2），这一步设置是管理员在关闭第一轮选择的时候自动进行设置
     //接收前端传来的请求导师列表
     @RequestMapping(path = "/sendRequest")
     @ResponseBody
@@ -101,9 +103,9 @@ public class ChoiceTeacherController {
         }
 
         //判断是否是重复发送请求，同时判断是否还剩名额，
-        //先获得这个学生发送过得所有请求list
+        //先获得这个学生发送过得所有请求list——仅限在本轮中
         LambdaQueryWrapper<Requests> requestsLambdaQueryWrapper1 = new LambdaQueryWrapper<>();
-        requestsLambdaQueryWrapper1.eq(Requests::getStudentId, student.getStudentId());
+        requestsLambdaQueryWrapper1.eq(Requests::getStudentId, student.getStudentId()).eq(Requests::getRoundId, roundId);
         List<Requests> requestsList1 = requestsService.list(requestsLambdaQueryWrapper1);
         //如果总请求数大于5则抛错
         if (requestsList1.size() + teacherIds.length > 5) {

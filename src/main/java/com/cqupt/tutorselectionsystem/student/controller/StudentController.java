@@ -95,7 +95,7 @@ public class StudentController {
 
         //得到这个学生给哪些老师发送过请求
         LambdaQueryWrapper<Requests> requestsLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        requestsLambdaQueryWrapper.eq(Requests::getStudentId, student.getStudentId());
+        requestsLambdaQueryWrapper.eq(Requests::getStudentId, student.getStudentId()).eq(Requests::getRoundId, roundInfoDTO.getRoundId());
         List<Requests> requestsList = requestsService.list(requestsLambdaQueryWrapper);
         //我们只需要里面的teacherIds
         Integer[] teacherIds=new Integer[requestsList.size()];
