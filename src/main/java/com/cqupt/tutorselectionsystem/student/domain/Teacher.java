@@ -90,6 +90,11 @@ public class Teacher implements Serializable {
     private Date birthday;
 
     /**
+     * 登录验证token
+     */
+    private String token;
+
+    /**
      * 逻辑删除，默认是0
      */
     @TableLogic

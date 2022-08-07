@@ -20,6 +20,7 @@
             <result property="sex" column="sex" jdbcType="TINYINT"/>
             <result property="address" column="address" jdbcType="VARCHAR"/>
             <result property="birthday" column="birthday" jdbcType="TIMESTAMP"/>
+            <result property="token" column="token" jdbcType="VARCHAR"/>
             <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
     </resultMap>
 
@@ -29,6 +30,6 @@
         teacher_type,description,total_student,
         head_image,email,telephone,
         sex,address,birthday,
-        is_deleted
+        token,is_deleted
     </sql>
 </mapper>
