@@ -73,7 +73,9 @@ public class StudentController {
             queryWrapper.eq(Student::getToken, token);
             student = studentService.getOne(queryWrapper);
             //查询出来之后再次放入session
-            session.setAttribute(token, student);
+            if (student != null) {
+                session.setAttribute(token, student);
+            }
         }
 
 
@@ -85,6 +87,9 @@ public class StudentController {
         RoundInfoDTO roundInfoDTO = new RoundInfoDTO();
         if (round == null) {
             roundInfo = "系统尚未开启！";
+            return ResultMsg.success()
+                    .add("studentInfo", student)
+                    .add("roundInfo", roundInfo);
         } else {
             roundInfoDTO.setRoundId(round.getRoundId());//id
             String roundName = round.getName().replace("-", "年度第") + "轮";
@@ -98,7 +103,7 @@ public class StudentController {
         requestsLambdaQueryWrapper.eq(Requests::getStudentId, student.getStudentId()).eq(Requests::getRoundId, roundInfoDTO.getRoundId());
         List<Requests> requestsList = requestsService.list(requestsLambdaQueryWrapper);
         //我们只需要里面的teacherIds
-        Integer[] teacherIds=new Integer[requestsList.size()];
+        Integer[] teacherIds = new Integer[requestsList.size()];
         for (int i = 0; i < requestsList.size(); i++) {
             Integer teacherId = requestsList.get(i).getTeacherId();
             teacherIds[i] = teacherId;
@@ -106,7 +111,7 @@ public class StudentController {
 
         return ResultMsg.success()
                 .add("studentInfo", student)
-                .add("roundInfo", round == null ? roundInfo : roundInfoDTO)
+                .add("roundInfo", roundInfoDTO)
                 .add("teacherIds", teacherIds);
     }
 }
