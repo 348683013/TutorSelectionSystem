@@ -15,51 +15,51 @@
           <i class="el-icon-user"></i>
           {{infoAttr.name}}
         </template>
-        kooriookami
+        {{userInfo.realname}}
       </el-descriptions-item>
       <el-descriptions-item>
         <template slot="label">
           <i class="el-icon-s-check"></i>
           {{infoAttr.No}}
         </template>
-        s21111111
+        {{userInfo.accountNumber}}
       </el-descriptions-item>
       <el-descriptions-item>
         <template slot="label">
           <i class="el-icon-reading"></i>
           {{infoAttr.class}}
         </template>
-        生医一班
+        {{userInfo.className}}
       </el-descriptions-item>
       <el-descriptions-item>
         <template slot="label">
           <i class="el-icon-mobile-phone"></i>
           {{infoAttr.phone}}
         </template>
-        18100000000
+        {{userInfo.telephone}}
       </el-descriptions-item>
       <el-descriptions-item>
         <template slot="label">
           <i class="el-icon-message"></i>
           {{infoAttr.email}}
         </template>
-        1xxxxxxxxxx@qq.com
+        {{userInfo.email}}
       </el-descriptions-item>
       <el-descriptions-item>
         <template slot="label">
           <i class="el-icon-message"></i>
           {{infoAttr.status}}
         </template>
-        <el-tag type="danger">未选取</el-tag>
-        <el-tag type="warning">等待中</el-tag>
-        <el-tag type="success">已选取：XXX</el-tag>
+        <el-tag type="danger" v-show="userInfo.hasTutor==='0'">未被选</el-tag>
+        <!-- <el-tag type="warning">等待中</el-tag> -->
+        <el-tag type="success" v-show="userInfo.hasTutor!=='0'">已选取：{{userInfo.hasTutor}}</el-tag>
       </el-descriptions-item>
       <el-descriptions-item>
         <template slot="label">
           <i class="el-icon-office-building"></i>
           {{infoAttr.address}}
         </template>
-        江苏省苏州市吴中区吴中大道 1188 号
+        {{userInfo.address}}
       </el-descriptions-item>
     </el-descriptions>
     
@@ -80,7 +80,7 @@ export default {
         this.$router.push('user/change')
     }
   },
-  props:["infoAttr"]
+  props:["infoAttr","userInfo"]
 };
 </script>
 

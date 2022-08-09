@@ -1,9 +1,10 @@
 // 登录时收集的数据仓库
+import {getLoginType} from '@/utils/loginType'
 
 const state={
-    isTeacher:false,
-    isStudent:false,
-    isAdmin:false
+    isTeacher:getLoginType('isTeacher'),
+    isStudent:getLoginType('isStudent'),
+    isAdmin:getLoginType('isAdmin')
 }
 const mutations={
     CHANGEISTEACHER(state,isTeacher){

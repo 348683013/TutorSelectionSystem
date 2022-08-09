@@ -2,17 +2,17 @@
   <div>
     <div style="margin-top: 15px">
       <el-input
-        placeholder="请输入内容"
-        v-model="input3"
+        :placeholder="select==='1'?'请输入姓名':'请输入男或女'"
+        v-model="input"
         class="input-with-select"
         
       >
-        <el-select v-model="select" slot="prepend" placeholder="请选择" class="selector">
+        <el-select v-model="select" slot="prepend"  class="selector">
           <el-option label="姓名" value="1"></el-option>
-          <el-option label="年龄" value="2"></el-option>
-          <el-option label="性别" value="3"></el-option>
+          <!-- <el-option label="年龄" value="2"></el-option> -->
+          <el-option label="性别" value="2"></el-option>
         </el-select>
-        <el-button slot="append" icon="el-icon-search"></el-button>
+        <el-button slot="append" icon="el-icon-search" @click="submit"></el-button>
       </el-input>
     </div>
   </div>
@@ -23,12 +23,26 @@ export default {
   name: "Search",
   data() {
     return {
-      input1: "",
-      input2: "",
-      input3: "",
-      select: "",
+      input: "",
+      select: "1",
     };
   },
+  methods:{
+    submit(){
+      if(this.select==="1"){
+        this.$emit('getSearchData',this.input)
+      }
+      if(this.select==="2"){
+        if(this.input==="男"||this.input==="女"){
+          this.$emit('getSexData',this.input)
+        }
+        else{
+          alert("请输入'男'或'女'")
+          this.input=""
+        }
+      }
+    }
+  }
 };
 </script>
 

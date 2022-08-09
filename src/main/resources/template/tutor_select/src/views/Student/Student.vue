@@ -33,8 +33,9 @@ export default {
           class: "生信二班",
           phone: "18892133830",
           email: "1016217659@qq.com",
-          status: "已选取",
+          status: 0,
           address: "陕西省渭南市临渭区光电高层8楼b2",
+          scienceClass:1
         },
         {
           name: "张鑫南",
@@ -42,8 +43,9 @@ export default {
           class: "生信二班",
           phone: "18892133830",
           email: "1016217659@qq.com",
-          status: "已选取",
+          status: false,
           address: "陕西省渭南市临渭区光电高层8楼b2",
+          scienceClass:true
         },
         {
           name: "张鑫南",
@@ -51,8 +53,9 @@ export default {
           class: "生信二班",
           phone: "18892133830",
           email: "1016217659@qq.com",
-          status: "已选取",
+          status: true,
           address: "陕西省渭南市临渭区光电高层8楼b2",
+          scienceClass:true
         },
         {
           name: "张鑫南",
@@ -60,8 +63,9 @@ export default {
           class: "生信二班",
           phone: "18892133830",
           email: "1016217659@qq.com",
-          status: "已选取",
+          status: true,
           address: "陕西省渭南市临渭区光电高层8楼b2",
+          scienceClass:true
         },
         {
           name: "张鑫南",
@@ -69,8 +73,9 @@ export default {
           class: "生信二班",
           phone: "18892133830",
           email: "1016217659@qq.com",
-          status: "已选取",
+          status: true,
           address: "陕西省渭南市临渭区光电高层8楼b2",
+          scienceClass:true
         },
         {
           name: "张鑫南",
@@ -78,8 +83,9 @@ export default {
           class: "生信二班",
           phone: "18892133830",
           email: "1016217659@qq.com",
-          status: "已选取",
+          status: true,
           address: "陕西省渭南市临渭区光电高层8楼b2",
+          scienceClass:true
         },
         {
           name: "张鑫南",
@@ -87,8 +93,9 @@ export default {
           class: "生信二班",
           phone: "18892133830",
           email: "1016217659@qq.com",
-          status: "已选取",
-          address: "陕西省渭南市临渭区光电高层8楼b2",
+          status: true,
+          address: "陕西省渭南市临渭区广电高层8楼b2",
+          scienceClass:true
         },
       ],
       attr: {
@@ -112,7 +119,8 @@ export default {
                 phone: "",
                 email: "",
                 address: "",
-                status: "",
+                status: false,
+                scienceClass:false,
               },
             },
           });

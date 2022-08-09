@@ -22,11 +22,11 @@
           </template>
           <el-menu-item-group>
             <template slot="title">一志愿选择</template>
-            <el-menu-item index="/pick1">进行中</el-menu-item>
+            <el-menu-item index="/pick1" :disabled="roundId!==1">{{roundId===1?'进行中':'已结束'}}</el-menu-item>
             <!-- <el-menu-item index="1-2">选项2</el-menu-item> -->
           </el-menu-item-group>
           <el-menu-item-group title="二志愿选择">
-            <el-menu-item index="/pick2" disabled>未开放</el-menu-item>
+            <el-menu-item index="/pick2" :disabled="hasTutor!=='0'||roundId===1">{{roundId!==1?'进行中':'未开放'}}</el-menu-item>
           </el-menu-item-group>
           <!-- <el-menu-item index="1-4">
             <template slot="title">选项4</template>
@@ -72,7 +72,7 @@ export default {
       weekNo:''
     }
   },
-  props:['navList','isAdmin'],
+  props:['navList','isAdmin','roundId','hasTutor'],
   mounted(){
     this.nowDate()
   },

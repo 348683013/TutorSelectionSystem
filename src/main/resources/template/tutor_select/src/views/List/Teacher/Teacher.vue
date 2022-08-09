@@ -1,145 +1,34 @@
 <template>
   <div class="teacher-list">
-    <el-card class="box-card">
+    <el-card class="box-card" v-for="(teacher,index) in teacherList" :key="teacher.teacherId">
       <div slot="header" class="clearfix">
-        <span class="teacher-name">白明泽</span>
-        <el-button style="float: right; padding: 3px 0;color:rgb(58, 153, 58);" type="text" @click="toDetail"
+        <span class="teacher-name">{{teacher.realname}}</span>
+        <el-button style="float: right; padding: 3px 0;color:rgb(58, 153, 58);" type="text" @click="toDetail(index)"
           >查看详情</el-button
         >
       </div>
       <div class="text item">
-        <div class="photo"></div>
+        <div class="photo">
+          <img :src="teacher.headImage" style="width:100%;height:100%;" alt="">
+        </div>
         <div class="teacher-info-wrap">
-          <span>性别:</span>
-          <span>年龄:</span>
-          <span>职称:</span>
+          <div>性别:{{teacher.sex===0?'男':'女'}}</div>
+          <div>年龄:{{teacher.age}}</div>
+          <div>职称:{{teacher.teacherType}}</div>
         </div>
       </div>
     </el-card>
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span class="teacher-name">白明泽</span>
-        <el-button style="float: right; padding: 3px 0;color:rgb(58, 153, 58);" type="text"
-          >查看详情</el-button
-        >
-      </div>
-      <div class="text item">
-        <div class="photo"></div>
-        <div class="teacher-info-wrap">
-          <span>性别:</span>
-          <span>年龄:</span>
-          <span>职称:</span>
-        </div>
-      </div>
-    </el-card>
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span class="teacher-name">白明泽</span>
-        <el-button style="float: right; padding: 3px 0;color:rgb(58, 153, 58);" type="text"
-          >查看详情</el-button
-        >
-      </div>
-      <div class="text item">
-        <div class="photo"></div>
-        <div class="teacher-info-wrap">
-          <span>性别:</span>
-          <span>年龄:</span>
-          <span>职称:</span>
-        </div>
-      </div>
-    </el-card>
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span class="teacher-name">白明泽</span>
-        <el-button style="float: right; padding: 3px 0;color:rgb(58, 153, 58);" type="text"
-          >查看详情</el-button
-        >
-      </div>
-      <div class="text item">
-        <div class="photo"></div>
-        <div class="teacher-info-wrap">
-          <span>性别:</span>
-          <span>年龄:</span>
-          <span>职称:</span>
-        </div>
-      </div>
-    </el-card>
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span class="teacher-name">白明泽</span>
-        <el-button style="float: right; padding: 3px 0;color:rgb(58, 153, 58);" type="text"
-          >查看详情</el-button
-        >
-      </div>
-      <div class="text item">
-        <div class="photo"></div>
-        <div class="teacher-info-wrap">
-          <span>性别:</span>
-          <span>年龄:</span>
-          <span>职称:</span>
-        </div>
-      </div>
-    </el-card>
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span class="teacher-name">白明泽</span>
-        <el-button style="float: right; padding: 3px 0;color:rgb(58, 153, 58);" type="text"
-          >查看详情</el-button
-        >
-      </div>
-      <div class="text item">
-        <div class="photo"></div>
-        <div class="teacher-info-wrap">
-          <span>性别:</span>
-          <span>年龄:</span>
-          <span>职称:</span>
-        </div>
-      </div>
-    </el-card>
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span class="teacher-name">白明泽</span>
-        <el-button style="float: right; padding: 3px 0;color:rgb(58, 153, 58);" type="text"
-          >查看详情</el-button
-        >
-      </div>
-      <div class="text item">
-        <div class="photo"></div>
-        <div class="teacher-info-wrap">
-          <span>性别:</span>
-          <span>年龄:</span>
-          <span>职称:</span>
-        </div>
-      </div>
-    </el-card>
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span class="teacher-name">白明泽</span>
-        <el-button
-          style="float: right; padding: 3px 0;color:rgb(58, 153, 58);"
-          type="text"
-          @click="open"
-          >查看详情</el-button
-        >
-      </div>
-      <div class="text item">
-        <div class="photo"></div>
-        <div class="teacher-info-wrap">
-          <span>性别:</span>
-          <span>年龄:</span>
-          <span>职称:</span>
-        </div>
-      </div>
-    </el-card>
+    
   </div>
 </template>
 
 <script>
 export default {
   name: "Teacher",
+  props:['teacherList'],
   methods: {
-    toDetail(){
-      this.$router.push('list/detail')
+    toDetail(index){
+      this.$router.push(`list/detail?index=${index}`)
     },
     open(){
       
@@ -172,11 +61,14 @@ export default {
 
 .teacher-info-wrap {
   font-size: 14px;
-  margin-right: 70px;
+  padding-right: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  
 }
+
+
 
 .teacher-name {
   font-size: 24px;

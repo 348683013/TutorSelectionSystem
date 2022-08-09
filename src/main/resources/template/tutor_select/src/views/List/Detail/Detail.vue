@@ -5,7 +5,9 @@
         <i class="el-icon-close"></i>
       </div>
       <div class="teacher-detail-wrap">
-        <div class="teacher-photo"></div>
+        <div class="teacher-photo">
+          <img :src="info.headImage"  style="width:100%;height:100%" alt="">
+        </div>
         <div class="teacher-detail-info">
           <el-descriptions class="margin-top" :column="3" :size="size" border>
             <el-descriptions-item>
@@ -13,21 +15,21 @@
                 <i class="el-icon-user"></i>
                 姓名
               </template>
-              白明泽
+              {{info.realname}}
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
                 <i class="el-icon-mobile-phone"></i>
                 手机号
               </template>
-              18100000000
+              {{info.telephone}}
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
                 <i class="el-icon-location-outline"></i>
                 职称
               </template>
-              苏州市
+              {{info.teacherType}}
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
@@ -41,7 +43,7 @@
                 <i class="el-icon-office-building"></i>
                 联系地址
               </template>
-              江苏省苏州市吴中区吴中大道 1188 号
+              {{info.address}}
             </el-descriptions-item>
           </el-descriptions>
           <!-- <el-input
@@ -56,7 +58,7 @@
           <div class="result">
             <div style="width:90%;height:90%;">
               <div>履历</div>
-              <div class="result-content">{{result}}</div>
+              <div class="result-content">{{info.description}}</div>
             </div>
           </div>
         </div>
@@ -66,6 +68,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   name: "Detail",
   data() {
@@ -74,6 +77,17 @@ export default {
         "12222222222222222222222222222221111111111111111111111111111111111111111111111111111111111111111111111111111111111111111133311111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
       size: "",
     };
+  },
+  computed:{
+    ...mapState({
+      teacherList:state=>state.info.teacherList
+    }),
+    info(){
+      return this.teacherList[this.$route.query.index]
+    }
+  },
+  mounted(){
+    console.log(this.info);
   },
   methods: {
     goBack() {

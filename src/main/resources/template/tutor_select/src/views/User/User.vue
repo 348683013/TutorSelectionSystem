@@ -1,8 +1,8 @@
 <template>
   <div class="user-wrapper">
     <div class="user-wrap">
-      <Info v-show="isStudent" :infoAttr="studentInfoAttr"/>
-      <Info v-show="isTeacher" :infoAttr="teacherInfoAttr"/>
+      <Info v-show="isStudent" :infoAttr="studentInfoAttr" :userInfo="userInfo"/>
+      <Info v-show="isTeacher" :infoAttr="teacherInfoAttr" :userInfo="userInfo"/>
       <Select />
       
       <transition name="el-fade-in">
@@ -43,14 +43,15 @@ export default {
         status:'剩余名额',
         address:'联系地址'
       },
-      studentInfo:{},
-      teacherInfo:{}
+      // studentInfo:{},
+      // teacherInfo:{}
     }
   },
   computed:{
     ...mapState({
       isStudent:state=>state.login.isStudent,
-      isTeacher:state=>state.login.isTeacher
+      isTeacher:state=>state.login.isTeacher,
+      userInfo:state=>state.user.userInfo
     })
   }
 };

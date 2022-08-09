@@ -16,7 +16,7 @@
     <el-table-column prop="class" :label="attr.class" width="150"> </el-table-column>
     <el-table-column prop="phone" :label="attr.phone" width="150"> </el-table-column>
     <el-table-column prop="email" :label="attr.email" width="150"> </el-table-column>
-    <el-table-column prop="status" :label="attr.status" width="150">
+    <el-table-column prop="email" :label="attr.status" width="150">
     </el-table-column>
     <el-table-column prop="address" width="400">
       <template slot="header" slot-scope="scope">

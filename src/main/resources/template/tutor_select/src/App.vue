@@ -3,8 +3,8 @@
     <Header v-show="$route.meta.isShow" />
     <Pwd v-show="$route.meta.isShow" />
     <div class="content-wrapper">
-      <Nav :navList="studentNav" :isAdmin="isAdmin" v-show="$route.meta.isShow&&isStudent" />
-      <Nav :navList="teacherNav" :isAdmin="isAdmin" v-show="$route.meta.isShow&&isTeacher"/>
+      <Nav :navList="studentNav" :isAdmin="isAdmin" :roundId="roundId" :hasTutor="hasTutor" v-show="$route.meta.isShow&&isStudent" />
+      <Nav :navList="teacherNav" :isAdmin="isAdmin" :roundId="roundId" v-show="$route.meta.isShow&&isTeacher"/>
       <Nav :navList="adminNav" :isAdmin="isAdmin" v-show="$route.meta.isShow&&isAdmin"/>
 
       <router-view class="content"></router-view>
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import {getLoginType} from '@/utils/loginType'
 import Header from "./components/Header/Header.vue";
 import Nav from "./components/Nav/Nav.vue";
 import Pwd from "./components/Pwd/Pwd.vue";
@@ -66,21 +67,23 @@ export default {
     ...mapState({
       isTeacher:state=>state.login.isTeacher,
       isStudent:state=>state.login.isStudent,
-      isAdmin:state=>state.login.isAdmin
+      isAdmin:state=>state.login.isAdmin,
+      roundId:state=>state.choose.roundId,
+      hasTutor:state=>state.user.userInfo.hasTutor
     })
   },
   mounted(){
-    if(sessionStorage.getItem('isTeacher')==='true'){
+    if(getLoginType('isTeacher')===true){
       this.$store.dispatch('getIsTeacher',true)
     }else{
       this.$store.dispatch('getIsTeacher',false)
     }
-    if(sessionStorage.getItem('isStudent')==='true'){
+    if(getLoginType('isStudent')===true){
       this.$store.dispatch('getIsStudent',true)
     }else{
       this.$store.dispatch('getIsStudent',false)
     }
-    if(sessionStorage.getItem('isAdmin')==='true'){
+    if(getLoginType('isAdmin')===true){
       this.$store.dispatch('getIsAdmin',true)
     }else{
       this.$store.dispatch('getIsAdmin',false)

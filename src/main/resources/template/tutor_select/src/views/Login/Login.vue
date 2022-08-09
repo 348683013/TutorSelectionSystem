@@ -19,17 +19,32 @@
             <!-- 用户名 -->
             <div id="username">
               <i class="el-icon-user"></i>
-              <input type="text" placeholder="请输入用户名" />
+              <input
+                type="text"
+                placeholder="请输入用户名"
+                v-model="username"
+              />
             </div>
             <!-- 密码 -->
             <div id="password">
               <i class="el-icon-lock"></i>
-              <input type="password" placeholder="请输入密码" />
+              <input
+                type="password"
+                placeholder="请输入密码"
+                v-model="password"
+              />
             </div>
 
             <!-- 选择登陆身份 -->
             <div id="login-type">
-              <el-radio v-for="item in loginType" :key="item.value" v-model="radio" :label="item.typeId" style="color:white">{{item.type}}</el-radio>
+              <el-radio
+                v-for="item in loginType"
+                :key="item.value"
+                v-model="radio"
+                :label="item.typeId"
+                style="color: white"
+                >{{ item.type }}</el-radio
+              >
             </div>
             <!-- 记住密码和自动登录 -->
             <!-- <div class="save-auto">
@@ -44,7 +59,7 @@
                     </div> -->
             <!-- 登录 -->
             <div id="login">
-                <button @click="login">登录</button>
+              <button @click="login">登录</button>
             </div>
           </div>
         </div>
@@ -55,42 +70,76 @@
 </template>
 
 <script>
+import { setLoginType } from "@/utils/loginType";
+import { mapState } from "vuex";
 export default {
   name: "Login",
   data() {
     return {
+      username: "",
+      password: "",
       loginType: [
         { type: "学生", typeId: "1", isChecked: true, value: "学生" },
         { type: "导师", typeId: "2", isChecked: false, value: "导师" },
         { type: "管理", typeId: "3", isChecked: false, value: "管理" },
       ],
-      radio:'1'
+      radio: "1",
     };
   },
+  computed: {
+    loginInfo() {
+      return {
+        accountNumber: this.username,
+        password: this.password,
+      };
+    },
+    ...mapState({
+      token: (state) => state.user.token,
+    }),
+  },
   methods: {
-    login(){
+    login() {
       switch (this.radio) {
-        case '1':
-          this.$store.dispatch('getIsStudent',true)
-          sessionStorage.setItem('isStudent',true)
-          this.$router.push('/home')
-          break;
-        case '2':
-          sessionStorage.setItem('isTeacher',true)
-          this.$store.dispatch('getIsTeacher',true)
+        case "1":
+          this.$store.dispatch("studentLogin", this.loginInfo);
+          // console.log(this.token);
           
-          this.$router.push('/apply')
+
+          // if (this.token) {
+          //   this.$store.dispatch("getIsStudent", true);
+          //   this.$store.dispatch("getStudentInfo");
+          //   setLoginType("isStudent");
+          //   this.$router.push("/home");
+          // }
+
           break;
-        case '3':
-          this.$store.dispatch('getIsAdmin',true)
-          sessionStorage.setItem('isAdmin',true)
-          this.$router.push('/student')
+        case "2":
+          this.$store.dispatch("teacherLogin",this.loginInfo)
+          
+          // sessionStorage.setItem('isTeacher',true)
+          // this.$store.dispatch("getIsTeacher", true);
+          // setLoginType("isTeacher");
+          // this.$router.push("/apply");
+          break;
+        case "3":
+          this.$store.dispatch("getIsAdmin", true);
+          // sessionStorage.setItem('isAdmin',true)
+          setLoginType("isAdmin");
+          this.$router.push("/student");
           break;
       }
-
-    }
+    },
   },
-  
+  watch: {
+    token() {
+      this.$nextTick(() => {
+        this.$store.dispatch("getIsStudent", true);
+        this.$store.dispatch("getStudentInfo");
+        setLoginType("isStudent");
+        this.$router.push("/home");
+      });
+    },
+  },
 };
 </script>
 

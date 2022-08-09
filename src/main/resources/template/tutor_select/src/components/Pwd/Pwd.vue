@@ -11,7 +11,7 @@
       <!-- <el-breadcrumb-item><span class="bread-crumb">活动详情</span> </el-breadcrumb-item> -->
     </el-breadcrumb>
     <div class="min-userinfo">
-      <div class="welcome">欢迎您：张鑫南</div>
+      <div class="welcome">欢迎您：{{realname}}</div>
       <div class="term">{{currentYear}}-{{currentYear+1}}第一学期</div>
       <div class="now-time">{{now}}</div>
       <div class="logout" @click="logOut">退出</div>
@@ -21,6 +21,7 @@
 
 <script>
 import {mapState} from 'vuex'
+import {clearLoginType} from '@/utils/loginType'
 export default {
   name: "Pwd",
   data() {
@@ -67,7 +68,8 @@ export default {
       }
     },
     ...mapState({
-      isStudent:state=>state.login.isStudent
+      isStudent:state=>state.login.isStudent,
+      realname:state=>state.user.userInfo.realname
     })
   },
   methods: {
@@ -86,11 +88,15 @@ export default {
       }, 1000); 
     },
     logOut(){
+      this.$store.dispatch('userLogout')
+      clearLoginType()
       this.$router.push('/login')
       this.$store.dispatch('initLoginType')
-      sessionStorage.setItem('isStudent',false)
-      sessionStorage.setItem('isTeacher',false)
-      sessionStorage.setItem('isAdmin',false)
+      // sessionStorage.setItem('isStudent',false)
+      // sessionStorage.setItem('isTeacher',false)
+      // sessionStorage.setItem('isAdmin',false)
+
+
     }
   },
 };

@@ -30,6 +30,7 @@ export default {
           email: "1016217659@qq.com",
           status: "5",
           address: "陕西省渭南市临渭区光电高层8楼b2",
+          scienceClass:'厉害'
         },
         {
           name: "张鑫南",
@@ -39,6 +40,7 @@ export default {
           email: "1016217659@qq.com",
           status: "5",
           address: "陕西省渭南市临渭区光电高层8楼b2",
+          scienceClass:'厉害'
         },
         {
           name: "张鑫南",
@@ -48,6 +50,7 @@ export default {
           email: "1016217659@qq.com",
           status: "5",
           address: "陕西省渭南市临渭区光电高层8楼b2",
+          scienceClass:'厉害'
         },
         {
           name: "张鑫南",
@@ -57,6 +60,7 @@ export default {
           email: "1016217659@qq.com",
           status: "5",
           address: "陕西省渭南市临渭区光电高层8楼b2",
+          scienceClass:'厉害'
         },
         {
           name: "张鑫南",
@@ -66,6 +70,7 @@ export default {
           email: "1016217659@qq.com",
           status: "5",
           address: "陕西省渭南市临渭区光电高层8楼b2",
+          scienceClass:'厉害'
         },
         {
           name: "张鑫南",
@@ -75,6 +80,7 @@ export default {
           email: "1016217659@qq.com",
           status: "5",
           address: "陕西省渭南市临渭区光电高层8楼b2",
+          scienceClass:'厉害'
         },
       ],
       attr: {
@@ -99,6 +105,7 @@ export default {
                 email: "",
                 address: "",
                 status: "",
+                scienceClass:''
               },
             },
           });

@@ -24,14 +24,14 @@
             </el-form-item>
             <el-form-item label="选取状态">
               <el-radio-group v-model="form.status">
-                <el-radio label="已选择"></el-radio>
-                <el-radio label="未选择"></el-radio>
+                <el-radio :label="1">已选取</el-radio>
+                <el-radio :label="0">未选取</el-radio>
               </el-radio-group>
             </el-form-item>
             <el-form-item label="科研班">
-              <el-radio-group v-model="form.status">
-                <el-radio label="已加入"></el-radio>
-                <el-radio label="未加入"></el-radio>
+              <el-radio-group v-model="form.scienceClass">
+                <el-radio :label="1">已加入</el-radio>
+                <el-radio :label="0">未加入</el-radio>
               </el-radio-group>
             </el-form-item>
 
@@ -65,7 +65,7 @@
               <el-input v-model="form.status"></el-input>
             </el-form-item>
             <el-form-item label="履历">
-              <el-input v-model="form.status" type="textarea"></el-input>
+              <el-input v-model="form.scienceClass" type="textarea"></el-input>
             </el-form-item>
             
             <el-form-item>
@@ -92,7 +92,8 @@ export default {
         phone:'',
         email:'',
         address:'',
-        status:''
+        status:0,
+        scienceClass:0
       },
       
     };
@@ -118,6 +119,7 @@ export default {
   },
   mounted(){
     this.form = this.$route.query.data
+    // console.log(this.form);
   }
 };
 </script>
