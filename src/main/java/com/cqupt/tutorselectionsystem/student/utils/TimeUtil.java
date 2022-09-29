@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class TimeUtil {
 
-    public static String formatDateByPattern(Date date, String dateFormat){
+    public static String formatDateByPattern(Date date, String dateFormat) {
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
         String formatTimeStr = null;
         if (date != null) {
@@ -17,18 +17,19 @@ public class TimeUtil {
 
     /**
      * Date转为cron表达式
+     *
      * @param date
      * @return
      */
-    public static String dateToCron(Date date){
-        String dateFormat="ss mm HH dd MM ? yyyy";
+    public static String dateToCron(Date date) {
+        String dateFormat = "ss mm HH dd MM ? yyyy";
         String cron = formatDateByPattern(date, dateFormat);
         cron = cron.substring(0, cron.length() - 5);
         return cron;
     }
 
-    public static String stdTimeToCron(String stdTime){
-        SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static String stdTimeToCron(String stdTime) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = null;
         try {
             date = format.parse(stdTime);
@@ -37,6 +38,12 @@ public class TimeUtil {
         }
         String cron = dateToCron(date);
         return cron;
+    }
+
+    //Date转换成年月日格式
+    public static String dateToYMD(Date time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(time);
     }
 }
 
