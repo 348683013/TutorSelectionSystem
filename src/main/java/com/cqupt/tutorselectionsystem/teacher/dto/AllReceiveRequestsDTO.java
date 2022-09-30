@@ -15,4 +15,7 @@ public class AllReceiveRequestsDTO {
     private String className;//学生班级
     private String receiveTime;//收到请求时间
     private Integer status;//请求处理状态，0未处理，1已同意，2为已拒绝
+    private String email;//学生邮箱
+    private String address;//学生住址
+    private Integer hasScienceClass;//是否加入科研班
 }
