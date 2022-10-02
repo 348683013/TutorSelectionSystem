@@ -91,6 +91,14 @@ public class ChoiceTeacherController {
         session.setAttribute(token, student);
         //得到第几轮id
         Long roundId = requestDTO.getRoundId();
+
+        //如果此时没有开启系统，则直接返回，禁止申请
+        if(roundId == null){
+            return ResultMsg.success()
+                    .add("studentInfo", student)
+                    .add("roundInfo", "系统尚未开启！");
+        }
+
         //得到发送过来老师id的int数组
         Integer[] teacherIds = requestDTO.getCheckId();
 

@@ -86,29 +86,18 @@ public class StudentController {
             }
         }
 
+        if(student == null){
+            return ResultMsg.fail().add("msg", "用户未登录！");
+        }
 
         //得到现在是第几轮选择导师
         LambdaQueryWrapper<Round> roundLambdaQueryWrapper = new LambdaQueryWrapper<>();
         roundLambdaQueryWrapper.eq(Round::getIsStart, 1);
         Round round = roundService.getOne(roundLambdaQueryWrapper);
-        String roundInfo = "";
-        RoundInfoDTO roundInfoDTO = new RoundInfoDTO();
-        if (round == null) {
-            roundInfo = "系统尚未开启！";
-            return ResultMsg.success()
-                    .add("studentInfo", student)
-                    .add("roundInfo", roundInfo);
-        } else {
-            roundInfoDTO.setRoundId(round.getRoundId());//id
-            String roundName = round.getName().replace("-", "年度第") + "轮";
-            roundInfoDTO.setName(roundName);//第几轮
-            String stopTime = TimeUtil.formatDateByPattern(round.getStopTime(), "yyyy-MM-dd HH:mm:ss");
-            roundInfoDTO.setStopTime(stopTime);
-        }
 
         //得到这个学生给哪些老师发送过请求
         LambdaQueryWrapper<Requests> requestsLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        requestsLambdaQueryWrapper.eq(Requests::getStudentId, student.getStudentId()).eq(Requests::getRoundId, roundInfoDTO.getRoundId());
+        requestsLambdaQueryWrapper.eq(Requests::getStudentId, student.getStudentId()); //这里也不需要roundId作为查询条件了
         List<Requests> requestsList = requestsService.list(requestsLambdaQueryWrapper);
         //我们只需要里面的teacherIds
         Integer[] teacherIds = new Integer[requestsList.size()];
@@ -120,13 +109,25 @@ public class StudentController {
         //写入到数据库后，因为学生前端页面需要展示发送请求的信息，所以需要查询出来返回给前端
         List<RequestedInfoDTO> showStudentSendRequests = new ArrayList<>();
         //根据学生id查找他在本轮中发送的所有请求
-        LambdaQueryWrapper<Requests> stuIdAndRoundIdLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        stuIdAndRoundIdLambdaQueryWrapper.eq(Requests::getStudentId, student.getStudentId()).eq(Requests::getRoundId, round.getRoundId());
-        List<Requests> requestsByStuIdAndRoundId = requestsService.list(stuIdAndRoundIdLambdaQueryWrapper);
-        String roundName = round.getName();
-        roundName = roundName.substring(0, 4) + "年第" + roundName.substring(5) + "轮";
+        /*LambdaQueryWrapper<Requests> stuIdAndRoundIdLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        stuIdAndRoundIdLambdaQueryWrapper.eq(Requests::getStudentId, student.getStudentId());//改成了显示这个学生的所有请求信息，不用roundId作为查询条件了
+        List<Requests> requestsByStuIdAndRoundId = requestsService.list(stuIdAndRoundIdLambdaQueryWrapper);*/
+        String roundName;
+        if (round != null) {
+            roundName = round.getName();
+            roundName = roundName.substring(0, 4) + "年第" + roundName.substring(5) + "轮";
+        } else {
+            roundName = "系统尚未开启！";
+        }
+
+        RoundInfoDTO roundInfoDTO = new RoundInfoDTO();
+        roundInfoDTO.setRoundId(round == null ? 0 : round.getRoundId());//id
+        roundInfoDTO.setName(roundName);//第几轮
+        String stopTime = round == null ? "" : TimeUtil.formatDateByPattern(round.getStopTime(), "yyyy-MM-dd HH:mm:ss");
+        roundInfoDTO.setStopTime(stopTime);
+
         //把这个查询到的信息封装到DTO中
-        for (Requests request1 : requestsByStuIdAndRoundId) {
+        for (Requests request1 : requestsList) {
             RequestedInfoDTO requestedInfoDTO = new RequestedInfoDTO();
             requestedInfoDTO.setStudentName(request1.getStudentName());
             requestedInfoDTO.setTeacherName(request1.getTeacherName());

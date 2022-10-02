@@ -142,9 +142,20 @@ public class TeacherController {
 
         //再传一个roundId给前端
         LambdaQueryWrapper<Round> roundLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        roundLambdaQueryWrapper.eq(Round::getIsStart, 1);
+        roundLambdaQueryWrapper.eq(Round::getIsStart, 2);
         Round round = roundService.getOne(roundLambdaQueryWrapper);
         RoundInfoDTO roundInfoDTO = new RoundInfoDTO();
+        //如果选择尚未开始
+        if(round == null){
+            roundInfoDTO.setRoundId(0L);
+            roundInfoDTO.setName("系统尚未开启！");
+            roundInfoDTO.setStopTime("");
+            return ResultMsg.success()
+                    .add("teacherInfo", teacher)
+                    .add("myStudentList", myStudentList)
+                    .add("allReceiveRequestsDTOList", allReceiveRequestsDTOList)
+                    .add("roundInfo", roundInfoDTO);
+        }
         roundInfoDTO.setRoundId(round.getRoundId());
         roundInfoDTO.setName(round.getName());
         roundInfoDTO.setStopTime("本轮结束时间：" + TimeUtil.dateToYMD(round.getStopTime()));
