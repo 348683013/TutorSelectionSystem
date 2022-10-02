@@ -73,6 +73,7 @@ public class ReceiveAllRequestsController {
             allReceiveRequestsDTO.setStudentName(request1.getStudentName());
             allReceiveRequestsDTO.setReceiveTime(TimeUtil.dateToYMD(request1.getSendTime()));
             allReceiveRequestsDTO.setStatus(request1.getStatus());
+            allReceiveRequestsDTO.setAroundName("第" + (request1.getRoundId() % 2 == 0 ? 2 : 1) + "轮");
             //获得学生其他信息
             LambdaQueryWrapper<Student> studentLambdaQueryWrapper = new LambdaQueryWrapper<>();
             studentLambdaQueryWrapper.eq(Student::getStudentId, request1.getStudentId());

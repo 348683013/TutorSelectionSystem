@@ -18,4 +18,5 @@ public class AllReceiveRequestsDTO {
     private String email;//学生邮箱
     private String address;//学生住址
     private Integer hasScienceClass;//是否加入科研班
+    private String aroundName;//哪一轮发送的请求
 }

@@ -60,6 +60,11 @@ public class Teacher implements Serializable {
     private Integer totalStudent;
 
     /**
+     * 已同意学生数，默认是0
+     */
+    private Integer agreeCount;
+
+    /**
      * 照片路径
      */
     private String headImage;
@@ -93,6 +98,11 @@ public class Teacher implements Serializable {
      * 登录验证token
      */
     private String token;
+
+    /**
+     * 是否上锁，0是上锁，1是未上锁，默认上锁，上锁时候不能进行选择学生操作
+     */
+    private Integer isLock;
 
     /**
      * 逻辑删除，默认是0
