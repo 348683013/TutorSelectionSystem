@@ -92,12 +92,28 @@ public class StudentController {
 
         //得到现在是第几轮选择导师
         LambdaQueryWrapper<Round> roundLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        roundLambdaQueryWrapper.eq(Round::getIsStart, 1);
+        roundLambdaQueryWrapper.ne(Round::getIsStart, 0);
         Round round = roundService.getOne(roundLambdaQueryWrapper);
 
-        //得到这个学生给哪些老师发送过请求
+        String roundName;
+        if (round != null) {
+            roundName = round.getName();
+            roundName = roundName.substring(0, 4) + "年第" + roundName.substring(5) + "轮";
+        } else {
+            roundName = "系统尚未开启！";
+            RoundInfoDTO roundInfoDTO = new RoundInfoDTO();
+            roundInfoDTO.setRoundId(0L);//id
+            roundInfoDTO.setName(roundName);//第几轮
+            roundInfoDTO.setStopTime("");
+            roundInfoDTO.setIsStatus(0);
+            return ResultMsg.success()
+                    .add("studentInfo", student)
+                    .add("roundInfo", roundInfoDTO);
+        }
+
+        //得到这个学生在本轮给哪些老师发送过请求
         LambdaQueryWrapper<Requests> requestsLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        requestsLambdaQueryWrapper.eq(Requests::getStudentId, student.getStudentId()); //这里也不需要roundId作为查询条件了
+        requestsLambdaQueryWrapper.eq(Requests::getStudentId, student.getStudentId()).eq(Requests::getRoundId, round.getRoundId());
         List<Requests> requestsList = requestsService.list(requestsLambdaQueryWrapper);
         //我们只需要里面的teacherIds
         Integer[] teacherIds = new Integer[requestsList.size()];
@@ -112,19 +128,14 @@ public class StudentController {
         /*LambdaQueryWrapper<Requests> stuIdAndRoundIdLambdaQueryWrapper = new LambdaQueryWrapper<>();
         stuIdAndRoundIdLambdaQueryWrapper.eq(Requests::getStudentId, student.getStudentId());//改成了显示这个学生的所有请求信息，不用roundId作为查询条件了
         List<Requests> requestsByStuIdAndRoundId = requestsService.list(stuIdAndRoundIdLambdaQueryWrapper);*/
-        String roundName;
-        if (round != null) {
-            roundName = round.getName();
-            roundName = roundName.substring(0, 4) + "年第" + roundName.substring(5) + "轮";
-        } else {
-            roundName = "系统尚未开启！";
-        }
+
 
         RoundInfoDTO roundInfoDTO = new RoundInfoDTO();
         roundInfoDTO.setRoundId(round == null ? 0 : round.getRoundId());//id
         roundInfoDTO.setName(roundName);//第几轮
         String stopTime = round == null ? "" : TimeUtil.formatDateByPattern(round.getStopTime(), "yyyy-MM-dd HH:mm:ss");
         roundInfoDTO.setStopTime(stopTime);
+        roundInfoDTO.setIsStatus(round.getIsStart());
 
         //把这个查询到的信息封装到DTO中
         for (Requests request1 : requestsList) {

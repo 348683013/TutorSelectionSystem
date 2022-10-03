@@ -150,6 +150,7 @@ public class TeacherController {
             roundInfoDTO.setRoundId(0L);
             roundInfoDTO.setName("系统尚未开启！");
             roundInfoDTO.setStopTime("");
+            roundInfoDTO.setIsStatus(0);
             return ResultMsg.success()
                     .add("teacherInfo", teacher)
                     .add("myStudentList", myStudentList)
@@ -159,11 +160,12 @@ public class TeacherController {
         roundInfoDTO.setRoundId(round.getRoundId());
         roundInfoDTO.setName(round.getName());
         roundInfoDTO.setStopTime("本轮结束时间：" + TimeUtil.dateToYMD(round.getStopTime()));
+        roundInfoDTO.setIsStatus(round.getIsStart());
 
         return ResultMsg.success()
                 .add("teacherInfo", teacher)
                 .add("allReceiveRequestsDTOList", allReceiveRequestsDTOList)
                 .add("myStudentList", myStudentList)
-                .add("roundInfoDTO", roundInfoDTO);
+                .add("roundInfo", roundInfoDTO);
     }
 }

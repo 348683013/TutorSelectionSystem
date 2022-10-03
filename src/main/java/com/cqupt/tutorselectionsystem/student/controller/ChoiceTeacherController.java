@@ -28,6 +28,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @CrossOrigin  //解决跨域问题的注解
 @Controller
@@ -49,12 +50,13 @@ public class ChoiceTeacherController {
     @ResponseBody
     public ResultMsg hasSpareTeachers() {
         //查询有剩余名额老师姓名
-        LambdaQueryWrapper<Teacher> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.ne(Teacher::getTotalStudent, 0);
-        List<Teacher> teacherList = teacherService.list(lambdaQueryWrapper);
+        List<Teacher> teacherList = teacherService.list();
 
         List<HasSpareTeacherDTO> hasSpareTeacherDTOS = new ArrayList<>();
         for (Teacher teacher : teacherList) {
+            if (Objects.equals(teacher.getAgreeCount(), teacher.getTotalStudent())) {
+                continue;
+            }
             HasSpareTeacherDTO hasSpareTeacherDTO = new HasSpareTeacherDTO();
             BeanUtils.copyProperties(teacher, hasSpareTeacherDTO);
             hasSpareTeacherDTOS.add(hasSpareTeacherDTO);

@@ -7,4 +7,5 @@ public class RoundInfoDTO {
     private Long roundId;
     private String name;
     private String stopTime;
+    private Integer isStatus;
 }
