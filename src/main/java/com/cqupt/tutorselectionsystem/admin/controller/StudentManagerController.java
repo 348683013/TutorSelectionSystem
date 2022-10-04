@@ -84,6 +84,35 @@ public class StudentManagerController {
         }
     }
 
+    //删除学生信息
+    @ResponseBody
+    @RequestMapping(path = "/deleteStudentInfo")
+    public ResultMsg deleteStudentInfo(@RequestBody Student student, HttpSession session, HttpServletRequest request) {
+        String token = request.getHeader("token"); //从请求头中获取这个token的值
+        //先从session中取这个用户信息
+        Admin admin = (Admin) session.getAttribute(token);
+        if (admin == null) {
+            //当session中没有这个用户的时候再进行查询
+            LambdaQueryWrapper<Admin> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(Admin::getToken, token);
+            admin = adminService.getOne(queryWrapper);
+            //查询出来之后再次放入session
+            if (admin != null) {
+                session.setAttribute(token, admin);
+            }
+        }
+        //如果admin为null则表示没登录
+        if (admin == null) {
+            return ResultMsg.fail().add("msg", "管理员未登录！");
+        }
+        boolean b = studentService.removeById(student);
+        if (b) {
+            return ResultMsg.success().add("msg", "删除成功！");
+        } else {
+            return ResultMsg.fail().add("msg", "删除失败！");
+        }
+    }
+
     //添加学生信息
     /*@ResponseBody
     @RequestMapping(path = "/addStudentInfo")

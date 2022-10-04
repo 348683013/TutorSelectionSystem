@@ -1,5 +1,6 @@
 package com.cqupt.tutorselectionsystem.student.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -18,5 +19,12 @@ public class CalculateAge {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
         Date date = new Date();
         return sdf.format(date);
+    }
+
+    //日期字符串解析成Date
+    public static Date str2Date(String str) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = simpleDateFormat.parse(str);
+        return date;
     }
 }
