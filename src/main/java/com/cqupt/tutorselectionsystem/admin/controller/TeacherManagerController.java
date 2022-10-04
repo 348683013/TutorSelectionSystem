@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cqupt.tutorselectionsystem.admin.domain.Admin;
 import com.cqupt.tutorselectionsystem.admin.dto.AddTeacherDTO;
+import com.cqupt.tutorselectionsystem.admin.dto.LockOrNotDTO;
 import com.cqupt.tutorselectionsystem.admin.dto.ShowAllSAndTPageDTO;
 import com.cqupt.tutorselectionsystem.admin.service.AdminService;
 import com.cqupt.tutorselectionsystem.student.domain.Student;
@@ -134,6 +135,43 @@ public class TeacherManagerController {
             return ResultMsg.success().add("msg", "删除成功！");
         } else {
             return ResultMsg.fail().add("msg", "删除失败！");
+        }
+    }
+
+    //给老师上锁和解锁
+    @ResponseBody
+    @RequestMapping(path = "/lockOrNotTeacher")
+    public ResultMsg lockOrNotTeacher(@RequestBody LockOrNotDTO lockOrNotDTO, HttpSession session, HttpServletRequest request) {
+        String token = request.getHeader("token"); //从请求头中获取这个token的值
+        //先从session中取这个用户信息
+        Admin admin = (Admin) session.getAttribute(token);
+        if (admin == null) {
+            //当session中没有这个用户的时候再进行查询
+            LambdaQueryWrapper<Admin> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(Admin::getToken, token);
+            admin = adminService.getOne(queryWrapper);
+            //查询出来之后再次放入session
+            if (admin != null) {
+                session.setAttribute(token, admin);
+            }
+        }
+        //如果admin为null则表示没登录
+        if (admin == null) {
+            return ResultMsg.fail().add("msg", "管理员未登录！");
+        }
+        //如果现在已上锁则进行解锁，否则加锁
+        Teacher teacher = new Teacher();
+        teacher.setTeacherId(lockOrNotDTO.getTeacherId());
+        if (lockOrNotDTO.getIsLock() == 0) {
+            teacher.setIsLock(1);//解锁
+        } else {
+            teacher.setIsLock(0);//加锁
+        }
+        boolean b = teacherService.updateById(teacher);
+        if (b) {
+            return ResultMsg.success().add("msg", "修改成功！");
+        } else {
+            return ResultMsg.fail().add("msg", "修改失败！");
         }
     }
 }
