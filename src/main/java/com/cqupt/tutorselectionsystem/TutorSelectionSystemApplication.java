@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan({"com.cqupt.tutorselectionsystem.student.mapper"})
+@MapperScan({"com.cqupt.tutorselectionsystem.student.mapper","com.cqupt.tutorselectionsystem.admin.mapper"})
 public class TutorSelectionSystemApplication {
 
     public static void main(String[] args) {

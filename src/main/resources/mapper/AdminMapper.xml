@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqupt.tutorselectionsystem.admin.mapper.AdminMapper">
+
+    <resultMap id="BaseResultMap" type="com.cqupt.tutorselectionsystem.admin.domain.Admin">
+            <id property="adminId" column="admin_id" jdbcType="INTEGER"/>
+            <result property="accountNumber" column="account_number" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="adminName" column="admin_name" jdbcType="VARCHAR"/>
+            <result property="token" column="token" jdbcType="VARCHAR"/>
+            <result property="isLock" column="is_lock" jdbcType="TINYINT"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        admin_id,account_number,password,
+        admin_name,token,is_lock,
+        is_deleted
+    </sql>
+</mapper>

@@ -6,7 +6,7 @@
         <option name="generateConfig">
           <GenerateConfig>
             <option name="annotationType" value="MYBATIS_PLUS3" />
-            <option name="basePackage" value="com.cqupt.tutorselectionsystem.student" />
+            <option name="basePackage" value="com.cqupt.tutorselectionsystem.admin" />
             <option name="basePath" value="src/main/java" />
             <option name="classNameStrategy" value="camel" />
             <option name="encoding" value="UTF-8" />
@@ -63,8 +63,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="Teacher" />
-                  <option name="tableName" value="t_teacher" />
+                  <option name="className" value="Admin" />
+                  <option name="tableName" value="t_admin" />
                 </TableUIInfo>
               </list>
             </option>

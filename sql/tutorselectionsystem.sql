@@ -11,11 +11,32 @@
  Target Server Version : 50735
  File Encoding         : 65001
 
- Date: 03/10/2022 17:25:11
+ Date: 04/10/2022 16:58:55
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for t_admin
+-- ----------------------------
+DROP TABLE IF EXISTS `t_admin`;
+CREATE TABLE `t_admin`  (
+  `admin_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '管理员主键id',
+  `account_number` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '账号',
+  `password` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '密码',
+  `admin_name` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '管理员名称',
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '登录凭证',
+  `is_lock` tinyint(1) NULL DEFAULT 1 COMMENT '是否上锁，0是上锁，默认是1',
+  `is_deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除',
+  PRIMARY KEY (`admin_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_admin
+-- ----------------------------
+INSERT INTO `t_admin` VALUES (1, 'admin', 'admin', '管理员1', 'ca23d4df-db7e-4b8d-bc85-927325735b60', 1, 0);
+INSERT INTO `t_admin` VALUES (2, '111111', '111111', '管理员2', '01807482-7d92-4d39-a1a4-857b59fb4fd0', 1, 0);
 
 -- ----------------------------
 -- Table structure for t_requests
@@ -32,20 +53,15 @@ CREATE TABLE `t_requests`  (
   `round_id` bigint(19) NULL DEFAULT NULL COMMENT '第几轮id',
   `is_deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除',
   PRIMARY KEY (`request_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 117 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 121 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_requests
 -- ----------------------------
-INSERT INTO `t_requests` VALUES (108, 1, '张三', 1, '赵老师1', '2022-10-03 17:19:35', 1, 1, 0);
-INSERT INTO `t_requests` VALUES (109, 2, '李四', 1, '赵老师1', '2022-10-03 17:19:50', 0, 1, 0);
-INSERT INTO `t_requests` VALUES (110, 3, '王五', 1, '赵老师1', '2022-10-03 17:20:03', 0, 1, 0);
-INSERT INTO `t_requests` VALUES (111, 4, '赵六', 1, '赵老师1', '2022-10-03 17:20:19', 0, 1, 0);
-INSERT INTO `t_requests` VALUES (112, 5, '钱七', 1, '赵老师1', '2022-10-03 17:20:35', 0, 1, 0);
-INSERT INTO `t_requests` VALUES (113, 5, '钱七', 1, '赵老师1', '2022-10-03 17:21:59', 1, 2, 0);
-INSERT INTO `t_requests` VALUES (114, 4, '赵六', 1, '赵老师1', '2022-10-03 17:22:13', 1, 2, 0);
-INSERT INTO `t_requests` VALUES (115, 3, '王五', 1, '赵老师1', '2022-10-03 17:22:29', 0, 2, 0);
-INSERT INTO `t_requests` VALUES (116, 2, '李四', 1, '赵老师1', '2022-10-03 17:22:42', 1, 2, 0);
+INSERT INTO `t_requests` VALUES (117, 1, '张三', 1, '赵老师1', '2022-10-03 18:28:56', 1, 1, 0);
+INSERT INTO `t_requests` VALUES (118, 1, '张三', 2, '赵老师2', '2022-10-03 18:28:56', 0, 1, 0);
+INSERT INTO `t_requests` VALUES (119, 2, '李四', 1, '赵老师1', '2022-10-03 18:29:17', 1, 1, 0);
+INSERT INTO `t_requests` VALUES (120, 2, '李四', 3, '赵老师3', '2022-10-03 18:29:17', 0, 1, 0);
 
 -- ----------------------------
 -- Table structure for t_round
@@ -64,8 +80,8 @@ CREATE TABLE `t_round`  (
 -- ----------------------------
 -- Records of t_round
 -- ----------------------------
-INSERT INTO `t_round` VALUES (1, '2022-1', 0, '2022-08-05 00:00:00', '2022-08-06 00:00:00', 0);
-INSERT INTO `t_round` VALUES (2, '2022-2', 2, '2022-08-07 00:00:00', '2022-08-08 00:00:00', 0);
+INSERT INTO `t_round` VALUES (1, '2022-1', 1, '2022-08-05 00:00:00', '2022-08-06 00:00:00', 0);
+INSERT INTO `t_round` VALUES (2, '2022-2', 0, '2022-08-07 00:00:00', '2022-08-08 00:00:00', 0);
 
 -- ----------------------------
 -- Table structure for t_student
@@ -86,16 +102,27 @@ CREATE TABLE `t_student`  (
   `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户token身份校验',
   `is_deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除，默认是0没删除',
   PRIMARY KEY (`student_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_student
 -- ----------------------------
-INSERT INTO `t_student` VALUES (1, 'S210231001', 'S210231001', '张三', 'S210231001@cqupt.com', '13914562541', 1, '生物信息1班', '赵老师1', '重庆市南岸区江南水岸二组团7幢', 0, '3109eafd-39b1-4f3a-8e6e-8a1158f74a0f', 0);
-INSERT INTO `t_student` VALUES (2, 'S210231002', 'S210231002', '李四', 'S210231002@cqupt.com', '13854612963', 1, '生物信息1班', '赵老师1', '重庆市南岸区江南水岸二组团7幢', 0, '481dae65-f9d0-40f2-8fcf-ec18e9e5a647', 0);
+INSERT INTO `t_student` VALUES (1, 'S210231001', 'S210231001', '张三', 'S210231001@cqupt.com', '13914562541', 1, '生物信息1班', '赵老师1', '重庆市南岸区江南水岸二组团7幢', 0, 'b6ef0033-3414-4602-a150-dc47bdcc5ffc', 0);
+INSERT INTO `t_student` VALUES (2, 'S210231002', 'S210231002', '李四', 'S210231002@cqupt.com', '13854612963', 1, '生物信息1班', '赵老师1', '重庆市南岸区江南水岸二组团7幢', 0, 'be7e33d8-6233-475a-8851-6e20feaf27bc', 0);
 INSERT INTO `t_student` VALUES (3, 'S210231003', 'S210231003', '王五', 'S210231003@cqupt.com', '15646595659', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, '65e83996-5638-4e4b-8ea0-4c8504ec7e85', 0);
-INSERT INTO `t_student` VALUES (4, 'S210231004', 'S210231004', '赵六', 'S210231004@cqupt.com', '16542548565', 1, '生物信息1班', '赵老师1', '重庆市南岸区江南水岸二组团7幢', 0, '042c8d7c-231b-4ca4-b1de-08ce1c935668', 0);
-INSERT INTO `t_student` VALUES (5, 'S210231005', 'S210231005', '钱七', 'S210231005@cqupt.com', '15648456656', 1, '生物信息1班', '赵老师1', '重庆市南岸区江南水岸二组团7幢', 0, 'df96ad75-f377-4f03-9a2e-d2b76dd5831b', 0);
+INSERT INTO `t_student` VALUES (4, 'S210231004', 'S210231004', '赵六', 'S210231004@cqupt.com', '16542548565', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, '042c8d7c-231b-4ca4-b1de-08ce1c935668', 0);
+INSERT INTO `t_student` VALUES (5, 'S210231005', 'S210231005', '钱七', 'S210231005@cqupt.com', '15648456656', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, 'df96ad75-f377-4f03-9a2e-d2b76dd5831b', 0);
+INSERT INTO `t_student` VALUES (6, 'S210231006', 'S210231006', '房间', 'S210231006@cqupt.com', '15216465615', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (7, 'S210231007', 'S210231007', '风飞沙', 'S210231006@cqupt.com', '16445231245', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (8, 'S210231008', 'S210231008', '是就撒', 'S210231007@qq.com', '15688945211', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (9, 'S210231009', 'S210231009', '分解', 'S210231008@168.com', '15885546121', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (10, 'S210231010', 'S210231010', '光荣感', 'S210231010@gmail.com', '16594656555', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (11, 'S210231011', 'S210231011', '哈尔方法', 'S210231011@gmail.com', '15784555265', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (12, 'S210231012', 'S210231012', '好人吗', 'S210231012@cqupt.com', '12548541545', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (13, 'S210231013', 'S210231013', '核桃仁', 'S210231013@gmail.com', '15487459566', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (14, 'S210231014', 'S210231014', '红人馆', 'S210231014@qq.com', '16548545845', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (15, 's210231264', '123', '胡宇栋', '11111', '11111', NULL, '111', '0', '重庆', 1, NULL, 0);
+INSERT INTO `t_student` VALUES (16, 'S210231222', 'S210231222', '张鑫南', '15657956565@qq.com', '15657956565', NULL, '计算机一班', '0', '重庆市南岸区江南水岸二组团7幢', 1, NULL, 0);
 
 -- ----------------------------
 -- Table structure for t_teacher
@@ -122,12 +149,12 @@ CREATE TABLE `t_teacher`  (
   `is_lock` tinyint(1) NULL DEFAULT 0 COMMENT '是否上锁，0是上锁，1是未上锁，默认上锁，上锁时候不能进行选择学生操作',
   `is_deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除，默认是0',
   PRIMARY KEY (`teacher_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_teacher
 -- ----------------------------
-INSERT INTO `t_teacher` VALUES (1, 't111111', '111111', '赵老师1', 1, '生物学院', '副教授', '生物学院副教授，针对生物大数据颇有研究', 4, 4, 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp1.itc.cn%2Fimages01%2F20200718%2F9d65e695aa2f48d6894683fdd2cb3b04.jpeg&refer=http%3A%2F%2Fp1.itc.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1661952029&t=86daea887a1a10217bba8653ea8c3783', 'xxxxxx@qq.com', '15212345689', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', 'e304e0c4-b1c7-4bc2-bc0a-5079e56735eb', 0, 0);
+INSERT INTO `t_teacher` VALUES (1, 't111111', '111111', '赵老师1', 1, '生物学院', '副教授', '生物学院副教授，针对生物大数据颇有研究', 4, 2, 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp1.itc.cn%2Fimages01%2F20200718%2F9d65e695aa2f48d6894683fdd2cb3b04.jpeg&refer=http%3A%2F%2Fp1.itc.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1661952029&t=86daea887a1a10217bba8653ea8c3783', 'xxxxxx@qq.com', '15212345689', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', '18db74d3-c6d9-405d-a8c6-4f0ec14c2421', 1, 0);
 INSERT INTO `t_teacher` VALUES (2, 't222222', '222222', '赵老师2', 1, '生物学院', '教授', '生物学院副教授，针对生物大数据颇有研究', 13, 0, 'https://github.com/348683013/Pictures/blob/main/QQ%E6%88%AA%E5%9B%BE20220804150525.png?raw=true', 'xxxxxx@qq.com', '15212345623', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', '83f67117-9a09-40fe-9c5f-50543c056201', 0, 0);
 INSERT INTO `t_teacher` VALUES (3, 't333333', '333333', '赵老师3', 1, '生物学院', '教授', '生物学院副教授，针对生物大数据颇有研究', 20, 0, 'https://raw.githubusercontent.com/348683013/Pictures/main/QQ%E6%88%AA%E5%9B%BE20220804150810.png', 'xxxxxx@qq.com', '15212345698', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', NULL, 0, 0);
 INSERT INTO `t_teacher` VALUES (4, 't444444', '444444', '赵老师4', 1, '生物学院', '讲师', '生物学院副教授，针对生物大数据颇有研究', 9, 0, 'https://raw.githubusercontent.com/348683013/Pictures/main/QQ%E6%88%AA%E5%9B%BE20220804150851.png', 'xxxxxx@qq.com', '15212345678', 1, '重庆邮电大学家属院', '1996-09-03 21:38:07', NULL, 0, 0);
@@ -138,6 +165,9 @@ INSERT INTO `t_teacher` VALUES (9, 't999999', '999999', '赵老师8', 1, '生物
 INSERT INTO `t_teacher` VALUES (10, 't101010', '101010', '名老师2号', 1, '生物学院', '校长', '我是校长', 0, 0, 'https://raw.githubusercontent.com/348683013/Pictures/main/QQ%E6%88%AA%E5%9B%BE20220804151217.png', 'ming@qq.com', '18888888888', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', NULL, 0, 0);
 INSERT INTO `t_teacher` VALUES (12, 'bao123', 'bao123', '赵老师', 1, '生物学院', '教授', '生物学院老牌教授', 1, 0, 'https://raw.githubusercontent.com/348683013/Pictures/main/QQ%E6%88%AA%E5%9B%BE20220804151243.png', 'bao123@qq.com', '15310818596', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', NULL, 0, 0);
 INSERT INTO `t_teacher` VALUES (13, 'bao123', 'bao123', '包老师', 1, '生物学院', '教授', '生物学院老牌教授', 2, 0, 'https://raw.githubusercontent.com/348683013/Pictures/main/QQ%E6%88%AA%E5%9B%BE20220804151331.png', 'bao123@qq.com', '15310818596', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (14, 'bao123', 'bao123', '包老师2', 1, '生物学院', '教授', '生物学院老牌教授', 2, 0, 'https://raw.githubusercontent.com/348683013/Pictures/main/QQ%E6%88%AA%E5%9B%BE20220804151331.png', 'bao123@qq.com', '15310818596', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (15, 'bao123', 'bao123', '包老师', 1, '生物学院', '教授', '生物学院老牌教授', 2, 0, 'https://raw.githubusercontent.com/348683013/Pictures/main/QQ%E6%88%AA%E5%9B%BE20220804151331.png', 'bao123@qq.com', '15310818596', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (16, 'bao123', 'bao123', '包老师', 1, '生物学院', '教授', '生物学院老牌教授', 2, 0, 'https://raw.githubusercontent.com/348683013/Pictures/main/QQ%E6%88%AA%E5%9B%BE20220804151331.png', 'bao123@qq.com', '15310818596', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for t_timetask
