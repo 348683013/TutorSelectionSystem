@@ -108,7 +108,8 @@ public class ExcelTool {
             Map<String, Object> map1 = mapList1.get(i);
             Map<String, String> map2 = new HashMap<>();
             for (String key : map1.keySet()) {
-                String value = map1.get(key) == null ? null : map1.get(key).toString();
+                Object obj = map1.get(key);
+                String value = obj == null ? null : obj.toString();
                 map2.put(key, value);
             }
             mapList2.add(map2);

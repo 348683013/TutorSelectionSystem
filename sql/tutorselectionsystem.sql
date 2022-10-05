@@ -11,7 +11,7 @@
  Target Server Version : 50735
  File Encoding         : 65001
 
- Date: 04/10/2022 16:58:55
+ Date: 05/10/2022 20:10:09
 */
 
 SET NAMES utf8mb4;
@@ -35,8 +35,8 @@ CREATE TABLE `t_admin`  (
 -- ----------------------------
 -- Records of t_admin
 -- ----------------------------
-INSERT INTO `t_admin` VALUES (1, 'admin', 'admin', '管理员1', 'ca23d4df-db7e-4b8d-bc85-927325735b60', 1, 0);
-INSERT INTO `t_admin` VALUES (2, '111111', '111111', '管理员2', '01807482-7d92-4d39-a1a4-857b59fb4fd0', 1, 0);
+INSERT INTO `t_admin` VALUES (1, 'admin', 'admin', '管理员1', '27e661d5-9964-4586-997d-714b0e5b2b10', 1, 0);
+INSERT INTO `t_admin` VALUES (2, '111111', '111111', '管理员2', 'a90b2a3e-5945-47e5-8a23-6684ce6a0b4e', 1, 0);
 
 -- ----------------------------
 -- Table structure for t_requests
@@ -53,15 +53,70 @@ CREATE TABLE `t_requests`  (
   `round_id` bigint(19) NULL DEFAULT NULL COMMENT '第几轮id',
   `is_deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除',
   PRIMARY KEY (`request_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 121 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 220 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_requests
 -- ----------------------------
-INSERT INTO `t_requests` VALUES (117, 1, '张三', 1, '赵老师1', '2022-10-03 18:28:56', 1, 1, 0);
-INSERT INTO `t_requests` VALUES (118, 1, '张三', 2, '赵老师2', '2022-10-03 18:28:56', 0, 1, 0);
-INSERT INTO `t_requests` VALUES (119, 2, '李四', 1, '赵老师1', '2022-10-03 18:29:17', 1, 1, 0);
-INSERT INTO `t_requests` VALUES (120, 2, '李四', 3, '赵老师3', '2022-10-03 18:29:17', 0, 1, 0);
+INSERT INTO `t_requests` VALUES (161, 121, '约翰1', 22, '紫霞仙子1', '2022-10-05 19:43:12', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (162, 121, '约翰1', 24, '紫霞仙子2', '2022-10-05 19:43:12', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (163, 121, '约翰1', 26, '紫霞仙子2', '2022-10-05 19:43:12', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (164, 121, '约翰1', 27, '白骨精2', '2022-10-05 19:43:12', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (165, 121, '约翰1', 29, '白骨精3', '2022-10-05 19:43:12', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (166, 122, '纳什2', 22, '紫霞仙子1', '2022-10-05 19:43:44', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (167, 122, '纳什2', 24, '紫霞仙子2', '2022-10-05 19:43:44', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (168, 122, '纳什2', 29, '白骨精3', '2022-10-05 19:43:44', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (169, 122, '纳什2', 32, '紫霞仙子4', '2022-10-05 19:43:44', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (170, 122, '纳什2', 34, '紫霞仙子4', '2022-10-05 19:43:44', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (171, 127, '约翰4', 27, '白骨精2', '2022-10-05 19:44:10', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (172, 127, '约翰4', 32, '紫霞仙子4', '2022-10-05 19:44:10', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (173, 127, '约翰4', 46, '紫霞仙子7', '2022-10-05 19:44:10', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (174, 127, '约翰4', 48, '紫霞仙子8', '2022-10-05 19:44:10', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (175, 127, '约翰4', 26, '紫霞仙子2', '2022-10-05 19:44:15', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (176, 139, '约翰10', 25, '白骨精2', '2022-10-05 19:44:35', 1, 1, 0);
+INSERT INTO `t_requests` VALUES (177, 139, '约翰10', 48, '紫霞仙子8', '2022-10-05 19:44:35', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (178, 139, '约翰10', 51, '白骨精8', '2022-10-05 19:44:35', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (179, 139, '约翰10', 53, '白骨精9', '2022-10-05 19:44:35', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (180, 139, '约翰10', 55, '白骨精9', '2022-10-05 19:44:35', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (181, 142, '纳什12', 22, '紫霞仙子1', '2022-10-05 19:49:23', 1, 1, 0);
+INSERT INTO `t_requests` VALUES (182, 142, '纳什12', 40, '紫霞仙子6', '2022-10-05 19:49:23', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (183, 142, '纳什12', 43, '白骨精6', '2022-10-05 19:49:23', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (184, 142, '纳什12', 50, '紫霞仙子8', '2022-10-05 19:49:23', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (185, 142, '纳什12', 52, '紫霞仙子9', '2022-10-05 19:49:23', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (186, 143, '约翰12', 22, '紫霞仙子1', '2022-10-05 19:49:39', 1, 1, 0);
+INSERT INTO `t_requests` VALUES (187, 143, '约翰12', 28, '紫霞仙子3', '2022-10-05 19:49:39', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (188, 143, '约翰12', 31, '白骨精3', '2022-10-05 19:49:39', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (189, 143, '约翰12', 33, '白骨精4', '2022-10-05 19:49:39', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (190, 143, '约翰12', 35, '白骨精4', '2022-10-05 19:49:39', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (191, 137, '约翰9', 22, '紫霞仙子1', '2022-10-05 19:49:56', 1, 1, 0);
+INSERT INTO `t_requests` VALUES (192, 137, '约翰9', 27, '白骨精2', '2022-10-05 19:49:56', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (193, 137, '约翰9', 30, '紫霞仙子3', '2022-10-05 19:49:56', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (194, 137, '约翰9', 33, '白骨精4', '2022-10-05 19:49:56', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (195, 137, '约翰9', 35, '白骨精4', '2022-10-05 19:49:56', 2, 1, 0);
+INSERT INTO `t_requests` VALUES (196, 121, '约翰1', 22, '紫霞仙子1', '2022-10-05 19:54:29', 2, 2, 0);
+INSERT INTO `t_requests` VALUES (197, 121, '约翰1', 24, '紫霞仙子2', '2022-10-05 19:54:29', 2, 2, 0);
+INSERT INTO `t_requests` VALUES (198, 121, '约翰1', 25, '白骨精2', '2022-10-05 19:54:29', 1, 2, 0);
+INSERT INTO `t_requests` VALUES (199, 121, '约翰1', 28, '紫霞仙子3', '2022-10-05 19:54:29', 2, 2, 0);
+INSERT INTO `t_requests` VALUES (200, 121, '约翰1', 29, '白骨精3', '2022-10-05 19:54:29', 2, 2, 0);
+INSERT INTO `t_requests` VALUES (201, 122, '纳什2', 22, '紫霞仙子1', '2022-10-05 19:55:20', 2, 2, 0);
+INSERT INTO `t_requests` VALUES (202, 122, '纳什2', 23, '白骨精1', '2022-10-05 19:55:20', 2, 2, 0);
+INSERT INTO `t_requests` VALUES (203, 122, '纳什2', 26, '紫霞仙子2', '2022-10-05 19:55:20', 2, 2, 0);
+INSERT INTO `t_requests` VALUES (204, 122, '纳什2', 28, '紫霞仙子3', '2022-10-05 19:55:20', 2, 2, 0);
+INSERT INTO `t_requests` VALUES (205, 136, '纳什9', 22, '紫霞仙子1', '2022-10-05 19:55:50', 1, 2, 0);
+INSERT INTO `t_requests` VALUES (206, 136, '纳什9', 26, '紫霞仙子2', '2022-10-05 19:55:50', 2, 2, 0);
+INSERT INTO `t_requests` VALUES (207, 136, '纳什9', 30, '紫霞仙子3', '2022-10-05 19:55:50', 2, 2, 0);
+INSERT INTO `t_requests` VALUES (208, 136, '纳什9', 32, '紫霞仙子4', '2022-10-05 19:55:50', 2, 2, 0);
+INSERT INTO `t_requests` VALUES (209, 136, '纳什9', 34, '紫霞仙子4', '2022-10-05 19:55:50', 2, 2, 0);
+INSERT INTO `t_requests` VALUES (210, 122, '纳什2', 22, '紫霞仙子1', '2022-10-05 19:58:53', 1, 2, 0);
+INSERT INTO `t_requests` VALUES (211, 123, '约翰2', 23, '白骨精1', '2022-10-05 19:59:18', 1, 2, 0);
+INSERT INTO `t_requests` VALUES (212, 124, '纳什3', 23, '白骨精1', '2022-10-05 19:59:18', 1, 2, 0);
+INSERT INTO `t_requests` VALUES (213, 125, '约翰3', 23, '白骨精1', '2022-10-05 19:59:18', 1, 2, 0);
+INSERT INTO `t_requests` VALUES (214, 127, '约翰4', 23, '白骨精1', '2022-10-05 19:59:18', 1, 2, 0);
+INSERT INTO `t_requests` VALUES (215, 128, '纳什5', 23, '白骨精1', '2022-10-05 19:59:18', 1, 2, 0);
+INSERT INTO `t_requests` VALUES (216, 129, '约翰5', 23, '白骨精1', '2022-10-05 19:59:18', 1, 2, 0);
+INSERT INTO `t_requests` VALUES (217, 126, '纳什4', 24, '紫霞仙子2', '2022-10-05 20:00:49', 1, 2, 0);
+INSERT INTO `t_requests` VALUES (218, 126, '纳什4', 24, '紫霞仙子2', '2022-10-05 20:00:49', 1, 2, 0);
+INSERT INTO `t_requests` VALUES (219, 130, '纳什6', 26, '紫霞仙子2', '2022-10-05 20:08:43', 1, 2, 0);
 
 -- ----------------------------
 -- Table structure for t_round
@@ -75,12 +130,12 @@ CREATE TABLE `t_round`  (
   `stop_time` datetime NULL DEFAULT NULL COMMENT '结束时间',
   `is_deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除',
   PRIMARY KEY (`round_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_round
 -- ----------------------------
-INSERT INTO `t_round` VALUES (1, '2022-1', 1, '2022-08-05 00:00:00', '2022-08-06 00:00:00', 0);
+INSERT INTO `t_round` VALUES (1, '2022-1', 0, '2022-08-05 00:00:00', '2022-08-06 00:00:00', 0);
 INSERT INTO `t_round` VALUES (2, '2022-2', 0, '2022-08-07 00:00:00', '2022-08-08 00:00:00', 0);
 
 -- ----------------------------
@@ -102,27 +157,36 @@ CREATE TABLE `t_student`  (
   `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户token身份校验',
   `is_deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除，默认是0没删除',
   PRIMARY KEY (`student_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 146 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_student
 -- ----------------------------
-INSERT INTO `t_student` VALUES (1, 'S210231001', 'S210231001', '张三', 'S210231001@cqupt.com', '13914562541', 1, '生物信息1班', '赵老师1', '重庆市南岸区江南水岸二组团7幢', 0, 'b6ef0033-3414-4602-a150-dc47bdcc5ffc', 0);
-INSERT INTO `t_student` VALUES (2, 'S210231002', 'S210231002', '李四', 'S210231002@cqupt.com', '13854612963', 1, '生物信息1班', '赵老师1', '重庆市南岸区江南水岸二组团7幢', 0, 'be7e33d8-6233-475a-8851-6e20feaf27bc', 0);
-INSERT INTO `t_student` VALUES (3, 'S210231003', 'S210231003', '王五', 'S210231003@cqupt.com', '15646595659', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, '65e83996-5638-4e4b-8ea0-4c8504ec7e85', 0);
-INSERT INTO `t_student` VALUES (4, 'S210231004', 'S210231004', '赵六', 'S210231004@cqupt.com', '16542548565', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, '042c8d7c-231b-4ca4-b1de-08ce1c935668', 0);
-INSERT INTO `t_student` VALUES (5, 'S210231005', 'S210231005', '钱七', 'S210231005@cqupt.com', '15648456656', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, 'df96ad75-f377-4f03-9a2e-d2b76dd5831b', 0);
-INSERT INTO `t_student` VALUES (6, 'S210231006', 'S210231006', '房间', 'S210231006@cqupt.com', '15216465615', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, NULL, 0);
-INSERT INTO `t_student` VALUES (7, 'S210231007', 'S210231007', '风飞沙', 'S210231006@cqupt.com', '16445231245', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, NULL, 0);
-INSERT INTO `t_student` VALUES (8, 'S210231008', 'S210231008', '是就撒', 'S210231007@qq.com', '15688945211', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, NULL, 0);
-INSERT INTO `t_student` VALUES (9, 'S210231009', 'S210231009', '分解', 'S210231008@168.com', '15885546121', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, NULL, 0);
-INSERT INTO `t_student` VALUES (10, 'S210231010', 'S210231010', '光荣感', 'S210231010@gmail.com', '16594656555', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, NULL, 0);
-INSERT INTO `t_student` VALUES (11, 'S210231011', 'S210231011', '哈尔方法', 'S210231011@gmail.com', '15784555265', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, NULL, 0);
-INSERT INTO `t_student` VALUES (12, 'S210231012', 'S210231012', '好人吗', 'S210231012@cqupt.com', '12548541545', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, NULL, 0);
-INSERT INTO `t_student` VALUES (13, 'S210231013', 'S210231013', '核桃仁', 'S210231013@gmail.com', '15487459566', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, NULL, 0);
-INSERT INTO `t_student` VALUES (14, 'S210231014', 'S210231014', '红人馆', 'S210231014@qq.com', '16548545845', 1, '生物信息1班', '0', '重庆市南岸区江南水岸二组团7幢', 0, NULL, 0);
-INSERT INTO `t_student` VALUES (15, 's210231264', '123', '胡宇栋', '11111', '11111', NULL, '111', '0', '重庆', 1, NULL, 0);
-INSERT INTO `t_student` VALUES (16, 'S210231222', 'S210231222', '张鑫南', '15657956565@qq.com', '15657956565', NULL, '计算机一班', '0', '重庆市南岸区江南水岸二组团7幢', 1, NULL, 0);
+INSERT INTO `t_student` VALUES (121, 'yuehan11', 'yuehan11', '约翰1', 'yuehan@qq.com', '15310818596', NULL, '生物信息1班', '白骨精2', '美国洛杉矶', 0, 'edf04c2e-1437-40f2-9c09-628f4f465842', 0);
+INSERT INTO `t_student` VALUES (122, 'nashi111', 'nashi111', '纳什2', 'nashi@qq.com', '15310818596', NULL, '生物信息1班', '紫霞仙子1', '美国纽约', 1, '0aeaf944-4340-4ea2-a13f-e929f58fc05d', 0);
+INSERT INTO `t_student` VALUES (123, 'yuehan12', 'yuehan12', '约翰2', 'yuehan@qq.com', '15310818596', NULL, '生物信息1班', '白骨精1', '美国洛杉矶', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (124, 'nashi112', 'nashi112', '纳什3', 'nashi@qq.com', '15310818596', NULL, '生物信息1班', '白骨精1', '美国纽约', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (125, 'yuehan13', 'yuehan13', '约翰3', 'yuehan@qq.com', '15310818596', NULL, '生物信息1班', '白骨精1', '美国洛杉矶', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (126, 'nashi113', 'nashi113', '纳什4', 'nashi@qq.com', '15310818596', NULL, '生物信息1班', '紫霞仙子2', '美国纽约', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (127, 'yuehan14', 'yuehan14', '约翰4', 'yuehan@qq.com', '15310818596', NULL, '生物信息1班', '白骨精1', '美国洛杉矶', 0, '11891447-12aa-4532-b839-9fd96ff98b54', 0);
+INSERT INTO `t_student` VALUES (128, 'nashi114', 'nashi114', '纳什5', 'nashi@qq.com', '15310818596', NULL, '生物信息1班', '白骨精1', '美国纽约', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (129, 'yuehan15', 'yuehan15', '约翰5', 'yuehan@qq.com', '15310818596', NULL, '生物信息1班', '白骨精1', '美国洛杉矶', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (130, 'nashi115', 'nashi115', '纳什6', 'nashi@qq.com', '15310818596', NULL, '生物信息1班', '紫霞仙子2', '美国纽约', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (131, 'yuehan16', 'yuehan16', '约翰6', 'yuehan@qq.com', '15310818596', NULL, '生物信息1班', '0', '美国洛杉矶', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (132, 'nashi116', 'nashi116', '纳什7', 'nashi@qq.com', '15310818596', NULL, '生物信息1班', '0', '美国纽约', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (133, 'yuehan17', 'yuehan17', '约翰7', 'yuehan@qq.com', '15310818596', NULL, '生物信息1班', '0', '美国洛杉矶', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (134, 'nashi117', 'nashi117', '纳什8', 'nashi@qq.com', '15310818596', NULL, '生物信息1班', '0', '美国纽约', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (135, 'yuehan18', 'yuehan18', '约翰8', 'yuehan@qq.com', '15310818596', NULL, '生物信息1班', '0', '美国洛杉矶', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (136, 'nashi118', 'nashi118', '纳什9', 'nashi@qq.com', '15310818596', NULL, '生物信息1班', '紫霞仙子1', '美国纽约', 0, '010ae147-9a3a-4177-91c6-597a2a157cd9', 0);
+INSERT INTO `t_student` VALUES (137, 'yuehan19', 'yuehan19', '约翰9', 'yuehan@qq.com', '15310818596', NULL, '生物信息1班', '紫霞仙子1', '美国洛杉矶', 0, '14f92f85-9e86-455f-bb9f-c556655e9278', 0);
+INSERT INTO `t_student` VALUES (138, 'nashi119', 'nashi119', '纳什10', 'nashi@qq.com', '15310818596', NULL, '生物信息1班', '0', '美国纽约', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (139, 'yuehan20', 'yuehan20', '约翰10', 'yuehan@qq.com', '15310818596', NULL, '生物信息1班', '白骨精2', '美国洛杉矶', 0, 'ed9f2ab6-31f9-4583-9dfb-511821bcdcb6', 0);
+INSERT INTO `t_student` VALUES (140, 'nashi120', 'nashi120', '纳什11', 'nashi@qq.com', '15310818596', NULL, '生物信息1班', '0', '美国纽约', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (141, 'yuehan21', 'yuehan21', '约翰11', 'yuehan@qq.com', '15310818596', NULL, '生物信息1班', '0', '美国洛杉矶', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (142, 'nashi121', 'nashi121', '纳什12', 'nashi@qq.com', '15310818596', NULL, '生物信息1班', '紫霞仙子1', '美国纽约', 0, '29c3e6b1-8ab3-4ce5-b627-ca16e50ec21e', 0);
+INSERT INTO `t_student` VALUES (143, 'yuehan22', 'yuehan22', '约翰12', 'yuehan@qq.com', '15310818596', NULL, '生物信息1班', '紫霞仙子1', '美国洛杉矶', 0, 'f04717ac-504c-4b8d-834f-264bcef73159', 0);
+INSERT INTO `t_student` VALUES (144, 'nashi122', 'nashi122', '纳什13', 'nashi@qq.com', '15310818596', NULL, '生物信息1班', '0', '美国纽约', 0, NULL, 0);
+INSERT INTO `t_student` VALUES (145, 'yuehan23', 'yuehan23', '约翰13', 'yuehan@qq.com', '15310818596', NULL, '生物信息1班', '0', '美国洛杉矶', 0, NULL, 0);
 
 -- ----------------------------
 -- Table structure for t_teacher
@@ -149,25 +213,45 @@ CREATE TABLE `t_teacher`  (
   `is_lock` tinyint(1) NULL DEFAULT 0 COMMENT '是否上锁，0是上锁，1是未上锁，默认上锁，上锁时候不能进行选择学生操作',
   `is_deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除，默认是0',
   PRIMARY KEY (`teacher_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_teacher
 -- ----------------------------
-INSERT INTO `t_teacher` VALUES (1, 't111111', '111111', '赵老师1', 1, '生物学院', '副教授', '生物学院副教授，针对生物大数据颇有研究', 4, 2, 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp1.itc.cn%2Fimages01%2F20200718%2F9d65e695aa2f48d6894683fdd2cb3b04.jpeg&refer=http%3A%2F%2Fp1.itc.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1661952029&t=86daea887a1a10217bba8653ea8c3783', 'xxxxxx@qq.com', '15212345689', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', '18db74d3-c6d9-405d-a8c6-4f0ec14c2421', 1, 0);
-INSERT INTO `t_teacher` VALUES (2, 't222222', '222222', '赵老师2', 1, '生物学院', '教授', '生物学院副教授，针对生物大数据颇有研究', 13, 0, 'https://github.com/348683013/Pictures/blob/main/QQ%E6%88%AA%E5%9B%BE20220804150525.png?raw=true', 'xxxxxx@qq.com', '15212345623', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', '83f67117-9a09-40fe-9c5f-50543c056201', 0, 0);
-INSERT INTO `t_teacher` VALUES (3, 't333333', '333333', '赵老师3', 1, '生物学院', '教授', '生物学院副教授，针对生物大数据颇有研究', 20, 0, 'https://raw.githubusercontent.com/348683013/Pictures/main/QQ%E6%88%AA%E5%9B%BE20220804150810.png', 'xxxxxx@qq.com', '15212345698', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', NULL, 0, 0);
-INSERT INTO `t_teacher` VALUES (4, 't444444', '444444', '赵老师4', 1, '生物学院', '讲师', '生物学院副教授，针对生物大数据颇有研究', 9, 0, 'https://raw.githubusercontent.com/348683013/Pictures/main/QQ%E6%88%AA%E5%9B%BE20220804150851.png', 'xxxxxx@qq.com', '15212345678', 1, '重庆邮电大学家属院', '1996-09-03 21:38:07', NULL, 0, 0);
-INSERT INTO `t_teacher` VALUES (5, 't555555', '555555', '赵老师5', 1, '生物学院', '副教授', '生物学院副教授，针对生物大数据颇有研究', 11, 0, 'https://raw.githubusercontent.com/348683013/Pictures/main/QQ%E6%88%AA%E5%9B%BE20220804150914.png', 'xxxxxx@qq.com', '15212345678', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', NULL, 0, 0);
-INSERT INTO `t_teacher` VALUES (6, 't666666', '666666', '赵老师6', 1, '生物学院', '讲师', '生物学院副教授，针对生物大数据颇有研究', 0, 0, 'https://raw.githubusercontent.com/348683013/Pictures/main/QQ%E6%88%AA%E5%9B%BE20220804150950.png', 'xxxxxx@qq.com', '15212345678', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', NULL, 0, 0);
-INSERT INTO `t_teacher` VALUES (7, 't777777', '777777', '赵老师7', 1, '生物学院', '教授', '生物学院副教授，针对生物大数据颇有研究', 9, 0, 'https://raw.githubusercontent.com/348683013/Pictures/main/QQ%E6%88%AA%E5%9B%BE20220804151028.png', 'xxxxxx@qq.com', '15212345678', 1, '重庆邮电大学家属院', '1996-09-03 21:38:07', NULL, 0, 0);
-INSERT INTO `t_teacher` VALUES (9, 't999999', '999999', '赵老师8', 1, '生物学院', '讲师', '生物学院副教授，针对生物大数据颇有研究', 10, 0, 'https://raw.githubusercontent.com/348683013/Pictures/main/QQ%E6%88%AA%E5%9B%BE20220804151058.png', 'xxxxxx@qq.com', '15212345677', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', NULL, 0, 0);
-INSERT INTO `t_teacher` VALUES (10, 't101010', '101010', '名老师2号', 1, '生物学院', '校长', '我是校长', 0, 0, 'https://raw.githubusercontent.com/348683013/Pictures/main/QQ%E6%88%AA%E5%9B%BE20220804151217.png', 'ming@qq.com', '18888888888', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', NULL, 0, 0);
-INSERT INTO `t_teacher` VALUES (12, 'bao123', 'bao123', '赵老师', 1, '生物学院', '教授', '生物学院老牌教授', 1, 0, 'https://raw.githubusercontent.com/348683013/Pictures/main/QQ%E6%88%AA%E5%9B%BE20220804151243.png', 'bao123@qq.com', '15310818596', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', NULL, 0, 0);
-INSERT INTO `t_teacher` VALUES (13, 'bao123', 'bao123', '包老师', 1, '生物学院', '教授', '生物学院老牌教授', 2, 0, 'https://raw.githubusercontent.com/348683013/Pictures/main/QQ%E6%88%AA%E5%9B%BE20220804151331.png', 'bao123@qq.com', '15310818596', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', NULL, 0, 0);
-INSERT INTO `t_teacher` VALUES (14, 'bao123', 'bao123', '包老师2', 1, '生物学院', '教授', '生物学院老牌教授', 2, 0, 'https://raw.githubusercontent.com/348683013/Pictures/main/QQ%E6%88%AA%E5%9B%BE20220804151331.png', 'bao123@qq.com', '15310818596', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', NULL, 0, 0);
-INSERT INTO `t_teacher` VALUES (15, 'bao123', 'bao123', '包老师', 1, '生物学院', '教授', '生物学院老牌教授', 2, 0, 'https://raw.githubusercontent.com/348683013/Pictures/main/QQ%E6%88%AA%E5%9B%BE20220804151331.png', 'bao123@qq.com', '15310818596', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', NULL, 0, 0);
-INSERT INTO `t_teacher` VALUES (16, 'bao123', 'bao123', '包老师', 1, '生物学院', '教授', '生物学院老牌教授', 2, 0, 'https://raw.githubusercontent.com/348683013/Pictures/main/QQ%E6%88%AA%E5%9B%BE20220804151331.png', 'bao123@qq.com', '15310818596', 0, '重庆邮电大学家属院', '1996-09-03 21:38:07', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (22, 'zixiaxianzi11', 'zixiaxianzi', '紫霞仙子1', NULL, '计算机学院', '教授', '盘丝大仙', 5, 5, NULL, 'zixiaxianzi@qq.com', '15310818596', 1, '重庆邮电大学', '1999-12-12 00:00:00', '03317970-e7bc-420a-9574-4502eb34e774', 0, 0);
+INSERT INTO `t_teacher` VALUES (23, 'baigujing22', 'baigujing', '白骨精1', NULL, '计算机学院', '讲师', '她是白骨精', 6, 6, NULL, 'baigujing@qq.com', '15310818511', 1, '盘丝洞', '2022-11-11 00:00:00', '2ce9a105-bef1-4f12-b6d3-216b1d29fa80', 0, 0);
+INSERT INTO `t_teacher` VALUES (24, 'zixiaxianzi12', 'zixiaxianzi', '紫霞仙子2', NULL, '计算机学院', '教授', '盘丝大仙', 5, 2, NULL, 'zixiaxianzi@qq.com', '15310818512', 1, '重庆邮电大学', '1999-12-13 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (25, 'baigujing23', 'baigujing', '白骨精2', NULL, '计算机学院', '讲师', '她是白骨精', 6, 2, NULL, 'baigujing@qq.com', '15310818513', 1, '盘丝洞', '2022-11-12 00:00:00', '92205082-769f-4340-b717-25eeb9d55149', 0, 0);
+INSERT INTO `t_teacher` VALUES (26, 'zixiaxianzi13', 'zixiaxianzi', '紫霞仙子2', NULL, '计算机学院', '教授', '盘丝大仙', 6, 1, NULL, 'zixiaxianzi@qq.com', '15310818511', 1, '重庆邮电大学', '1999-12-14 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (27, 'baigujing24', 'baigujing', '白骨精2', NULL, '计算机学院', '讲师', '她是白骨精', 6, 0, NULL, 'baigujing@qq.com', '15310818512', 1, '盘丝洞', '2022-11-13 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (28, 'zixiaxianzi14', 'zixiaxianzi', '紫霞仙子3', NULL, '计算机学院', '教授', '盘丝大仙', 6, 0, NULL, 'zixiaxianzi@qq.com', '15310818513', 1, '重庆邮电大学', '1999-12-15 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (29, 'baigujing25', 'baigujing', '白骨精3', NULL, '计算机学院', '讲师', '她是白骨精', 6, 0, NULL, 'baigujing@qq.com', '15310818511', 1, '盘丝洞', '2022-11-14 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (30, 'zixiaxianzi15', 'zixiaxianzi', '紫霞仙子3', NULL, '计算机学院', '教授', '盘丝大仙', 6, 0, NULL, 'zixiaxianzi@qq.com', '15310818512', 1, '重庆邮电大学', '1999-12-16 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (31, 'baigujing26', 'baigujing', '白骨精3', NULL, '计算机学院', '讲师', '她是白骨精', 12, 0, NULL, 'baigujing@qq.com', '15310818513', 1, '盘丝洞', '2022-11-15 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (32, 'zixiaxianzi16', 'zixiaxianzi', '紫霞仙子4', NULL, '计算机学院', '教授', '盘丝大仙', 12, 0, NULL, 'zixiaxianzi@qq.com', '15310818511', 1, '重庆邮电大学', '1999-12-17 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (33, 'baigujing27', 'baigujing', '白骨精4', NULL, '计算机学院', '讲师', '她是白骨精', 12, 0, NULL, 'baigujing@qq.com', '15310818512', 1, '盘丝洞', '2022-11-16 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (34, 'zixiaxianzi17', 'zixiaxianzi', '紫霞仙子4', NULL, '计算机学院', '教授', '盘丝大仙', 12, 0, NULL, 'zixiaxianzi@qq.com', '15310818513', 1, '重庆邮电大学', '1999-12-18 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (35, 'baigujing28', 'baigujing', '白骨精4', NULL, '计算机学院', '讲师', '她是白骨精', 12, 0, NULL, 'baigujing@qq.com', '15310818511', 1, '盘丝洞', '2022-11-17 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (36, 'zixiaxianzi18', 'zixiaxianzi', '紫霞仙子5', NULL, '计算机学院', '教授', '盘丝大仙', 12, 0, NULL, 'zixiaxianzi@qq.com', '15310818512', 1, '重庆邮电大学', '1999-12-19 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (37, 'baigujing29', 'baigujing', '白骨精5', NULL, '计算机学院', '讲师', '她是白骨精', 12, 0, NULL, 'baigujing@qq.com', '15310818513', 1, '盘丝洞', '2022-11-18 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (38, 'zixiaxianzi19', 'zixiaxianzi', '紫霞仙子5', NULL, '计算机学院', '教授', '盘丝大仙', 12, 0, NULL, 'zixiaxianzi@qq.com', '15310818511', 1, '重庆邮电大学', '1999-12-20 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (39, 'baigujing30', 'baigujing', '白骨精5', NULL, '计算机学院', '讲师', '她是白骨精', 12, 0, NULL, 'baigujing@qq.com', '15310818512', 1, '盘丝洞', '2022-11-19 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (40, 'zixiaxianzi20', 'zixiaxianzi', '紫霞仙子6', NULL, '计算机学院', '教授', '盘丝大仙', 12, 0, NULL, 'zixiaxianzi@qq.com', '15310818513', 1, '重庆邮电大学', '1999-12-21 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (41, 'baigujing31', 'baigujing', '白骨精6', NULL, '计算机学院', '讲师', '她是白骨精', 12, 0, NULL, 'baigujing@qq.com', '15310818511', 1, '盘丝洞', '2022-11-20 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (42, 'zixiaxianzi21', 'zixiaxianzi', '紫霞仙子6', NULL, '计算机学院', '教授', '盘丝大仙', 12, 0, NULL, 'zixiaxianzi@qq.com', '15310818512', 1, '重庆邮电大学', '1999-12-22 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (43, 'baigujing32', 'baigujing', '白骨精6', NULL, '计算机学院', '讲师', '她是白骨精', 12, 0, NULL, 'baigujing@qq.com', '15310818513', 1, '盘丝洞', '2022-11-21 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (44, 'zixiaxianzi22', 'zixiaxianzi', '紫霞仙子7', NULL, '计算机学院', '教授', '盘丝大仙', 12, 0, NULL, 'zixiaxianzi@qq.com', '15310818511', 1, '重庆邮电大学', '1999-12-23 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (45, 'baigujing33', 'baigujing', '白骨精7', NULL, '计算机学院', '讲师', '她是白骨精', 12, 0, NULL, 'baigujing@qq.com', '15310818512', 1, '盘丝洞', '2022-11-22 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (46, 'zixiaxianzi23', 'zixiaxianzi', '紫霞仙子7', NULL, '计算机学院', '教授', '盘丝大仙', 12, 0, NULL, 'zixiaxianzi@qq.com', '15310818513', 1, '重庆邮电大学', '1999-12-24 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (47, 'baigujing34', 'baigujing', '白骨精7', NULL, '计算机学院', '讲师', '她是白骨精', 12, 0, NULL, 'baigujing@qq.com', '15310818511', 1, '盘丝洞', '2022-11-23 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (48, 'zixiaxianzi24', 'zixiaxianzi', '紫霞仙子8', NULL, '计算机学院', '教授', '盘丝大仙', 12, 0, NULL, 'zixiaxianzi@qq.com', '15310818512', 1, '重庆邮电大学', '1999-12-25 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (49, 'baigujing35', 'baigujing', '白骨精8', NULL, '计算机学院', '讲师', '她是白骨精', 12, 0, NULL, 'baigujing@qq.com', '15310818513', 1, '盘丝洞', '2022-11-24 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (50, 'zixiaxianzi25', 'zixiaxianzi', '紫霞仙子8', NULL, '计算机学院', '教授', '盘丝大仙', 12, 0, NULL, 'zixiaxianzi@qq.com', '15310818511', 1, '重庆邮电大学', '1999-12-26 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (51, 'baigujing36', 'baigujing', '白骨精8', NULL, '计算机学院', '讲师', '她是白骨精', 12, 0, NULL, 'baigujing@qq.com', '15310818512', 1, '盘丝洞', '2022-11-25 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (52, 'zixiaxianzi26', 'zixiaxianzi', '紫霞仙子9', NULL, '计算机学院', '教授', '盘丝大仙', 12, 0, NULL, 'zixiaxianzi@qq.com', '15310818513', 1, '重庆邮电大学', '1999-12-27 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (53, 'baigujing37', 'baigujing', '白骨精9', NULL, '计算机学院', '讲师', '她是白骨精', 12, 0, NULL, 'baigujing@qq.com', '15310818511', 1, '盘丝洞', '2022-11-26 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (54, 'zixiaxianzi27', 'zixiaxianzi', '紫霞仙子9', NULL, '计算机学院', '教授', '盘丝大仙', 12, 0, NULL, 'zixiaxianzi@qq.com', '15310818512', 1, '重庆邮电大学', '1999-12-28 00:00:00', NULL, 0, 0);
+INSERT INTO `t_teacher` VALUES (55, 'baigujing38', 'baigujing', '白骨精9', NULL, '计算机学院', '讲师', '她是白骨精', 12, 0, NULL, 'baigujing@qq.com', '15310818513', 1, '盘丝洞', '2022-11-27 00:00:00', NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for t_timetask

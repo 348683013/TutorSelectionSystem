@@ -25,9 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @CrossOrigin  //解决跨域问题的注解
 @Controller
@@ -157,10 +155,23 @@ public class SelectedResultController {
             for (int i = 0; i < studentIdsStrArr.length; i++) {
                 studentIdsIntArr[i] = Integer.parseInt(studentIdsStrArr[i]);
             }
-            List<DistributeStudentDTO> distributeStudentDTOList = new ArrayList<>();
+            //给studentIdsIntArr去重
+            Set<Integer> studentIdsIntSet = new HashSet<>();
             for (int i = 0; i < studentIdsIntArr.length; i++) {
+                studentIdsIntSet.add(studentIdsIntArr[i]);
+            }
+            Integer[] studentIdsIntArrNoRep = new Integer[studentIdsIntSet.size()];
+            Iterator<Integer> iterator = studentIdsIntSet.iterator();
+            int k = 0;
+            while (iterator.hasNext()) {
+                studentIdsIntArrNoRep[k] = iterator.next();
+                k++;
+            }
+
+            List<DistributeStudentDTO> distributeStudentDTOList = new ArrayList<>();
+            for (int i = 0; i < studentIdsIntArrNoRep.length; i++) {
                 LambdaQueryWrapper<Student> studentLambdaQueryWrapper = new LambdaQueryWrapper<>();
-                studentLambdaQueryWrapper.eq(Student::getStudentId, studentIdsIntArr[i]);
+                studentLambdaQueryWrapper.eq(Student::getStudentId, studentIdsIntArrNoRep[i]);
                 Student student = studentService.getOne(studentLambdaQueryWrapper);
                 //先看看这个学生是否已经有老师了
                 if (!student.getHasTutor().equals("0")) {

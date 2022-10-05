@@ -112,7 +112,7 @@ public class UploadExcelController {
             teacher.setPassword(map.get("password"));
             teacher.setTeacherType(map.get("teacherType"));
             teacher.setCollegeName(map.get("collegeName"));
-            teacher.setTelephone(map.get("telephone"));
+            teacher.setTelephone(map.get("telephone").toString());
             teacher.setEmail(map.get("email"));
             teacher.setAddress(map.get("address"));
             //计算总名额
