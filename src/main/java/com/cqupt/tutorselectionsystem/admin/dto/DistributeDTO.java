@@ -5,10 +5,8 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class SelectedResultDTO {
+public class DistributeDTO {
     private Integer teacherId;
     private String teacherName;
-    private Integer totalStudent;
-    private Integer agreeCount;
-    private List<String> studentNameList;
+    private String studentIdsStr;
 }

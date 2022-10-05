@@ -203,7 +203,7 @@ public class LockUnlockInSeqController {
     //设置所有的round的isStart为0，teacher的isLock都设置成0，把所有request中的未处理的请求都设置成拒绝2
     @Transactional(rollbackFor = Exception.class)
     @ResponseBody
-    @RequestMapping(path = "closeSystem")
+    @RequestMapping(path = "/closeSystem")
     public ResultMsg closeSystem(HttpSession session, HttpServletRequest request) {
         String token = request.getHeader("token"); //从请求头中获取这个token的值
         //先从session中取这个用户信息
