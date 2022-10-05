@@ -100,6 +100,15 @@ public class ChoiceTeacherController {
                     .add("studentInfo", student)
                     .add("roundInfo", "系统尚未开启！");
         }
+        //根据roundId查询round，看看是否是学生可选状态，不是的话显示未开启
+        LambdaQueryWrapper<Round> roundLambdaQueryWrapper1 = new LambdaQueryWrapper<>();
+        roundLambdaQueryWrapper1.eq(Round::getRoundId, roundId);
+        Round oneRound = roundService.getOne(roundLambdaQueryWrapper1);
+        if(oneRound.getIsStart() != 1){
+            return ResultMsg.success()
+                    .add("studentInfo", student)
+                    .add("roundInfo", "系统尚未开启！");
+        }
 
         //得到发送过来老师id的int数组
         Integer[] teacherIds = requestDTO.getCheckId();

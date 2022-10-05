@@ -62,7 +62,7 @@ public class SelectedResultController {
         //获得所有老师id
         LambdaQueryWrapper<Teacher> teacherLambdaQueryWrapper = new LambdaQueryWrapper<>();
         teacherLambdaQueryWrapper.select(Teacher::getTeacherId, Teacher::getRealname);
-        Page<Teacher> page = new Page<>(showAllSAndTPageDTO.getPage(), showAllSAndTPageDTO.getLimit());
+        Page<Teacher> page = new Page<>(showAllSAndTPageDTO.getPage(), 11);
         Page<Teacher> teachersByPage = teacherService.page(page, teacherLambdaQueryWrapper);
         List<Teacher> teacherList = teachersByPage.getRecords();
         List<SelectedResultDTO> selectedResultDTOList = new ArrayList<>();
