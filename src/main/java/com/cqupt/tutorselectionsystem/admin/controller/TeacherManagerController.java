@@ -6,9 +6,14 @@ import com.cqupt.tutorselectionsystem.admin.domain.Admin;
 import com.cqupt.tutorselectionsystem.admin.dto.AddTeacherDTO;
 import com.cqupt.tutorselectionsystem.admin.dto.LockOrNotDTO;
 import com.cqupt.tutorselectionsystem.admin.dto.ShowAllSAndTPageDTO;
+import com.cqupt.tutorselectionsystem.admin.dto.ShowTeachersDTO;
 import com.cqupt.tutorselectionsystem.admin.service.AdminService;
+import com.cqupt.tutorselectionsystem.student.domain.Requests;
+import com.cqupt.tutorselectionsystem.student.domain.Round;
 import com.cqupt.tutorselectionsystem.student.domain.Student;
 import com.cqupt.tutorselectionsystem.student.domain.Teacher;
+import com.cqupt.tutorselectionsystem.student.service.RequestsService;
+import com.cqupt.tutorselectionsystem.student.service.RoundService;
 import com.cqupt.tutorselectionsystem.student.service.StudentService;
 import com.cqupt.tutorselectionsystem.student.service.TeacherService;
 import com.cqupt.tutorselectionsystem.student.utils.CalculateAge;
@@ -39,6 +44,12 @@ public class TeacherManagerController {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private RoundService roundService;
+
+    @Autowired
+    private RequestsService requestsService;
+
     @ResponseBody
     @RequestMapping(path = "/showAllTeacherByPage")
     public ResultMsg showAllTeacherByPage(@RequestBody ShowAllSAndTPageDTO showAllSAndTPageDTO
@@ -62,18 +73,31 @@ public class TeacherManagerController {
         }
         Page<Teacher> page = new Page<>(showAllSAndTPageDTO.getPage(), showAllSAndTPageDTO.getLimit());
         Page<Teacher> teachersByPage = teacherService.page(page);
-        Page<AddTeacherDTO> addTeacherDTOPage = new Page<>();
-        BeanUtils.copyProperties(teachersByPage, addTeacherDTOPage);
-        List<AddTeacherDTO> addTeacherDTOList = new ArrayList<>();
+        Page<ShowTeachersDTO> showTeachersDTOPage = new Page<>();
+        BeanUtils.copyProperties(teachersByPage, showTeachersDTOPage);
+        List<ShowTeachersDTO> showTeachersDTOList = new ArrayList<>();
+        //获得当前轮次，is_start不等于0就是当前的轮次
+        LambdaQueryWrapper<Round> roundLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        roundLambdaQueryWrapper.ne(Round::getIsStart, 0);
+        Round round = roundService.getOne(roundLambdaQueryWrapper);
+        //如果这个时候未开启轮次，则round为空，我们直接设置请求数都为0
+        Long roundId = round != null ? round.getRoundId() : 0;
         //格式化里面老师的年龄
         for (Teacher teacher : teachersByPage.getRecords()) {
-            AddTeacherDTO addTeacherDTO = new AddTeacherDTO();
-            BeanUtils.copyProperties(teacher, addTeacherDTO);
-            addTeacherDTO.setBirthday(TimeUtil.dateToYMD(teacher.getBirthday()));
-            addTeacherDTOList.add(addTeacherDTO);
+            ShowTeachersDTO showTeachersDTO = new ShowTeachersDTO();
+            BeanUtils.copyProperties(teacher, showTeachersDTO);
+            showTeachersDTO.setBirthday(TimeUtil.dateToYMD(teacher.getBirthday()));
+            //得到这个老师收到的所有未处理的请求数，根据teacherId、status、roundId
+            LambdaQueryWrapper<Requests> requestsLambdaQueryWrapper = new LambdaQueryWrapper<>();
+            requestsLambdaQueryWrapper.eq(Requests::getTeacherId, teacher.getTeacherId())
+                    .eq(Requests::getRoundId, roundId)
+                    .eq(Requests::getStatus, 0);
+            long untreatedRequestsCount = requestsService.count(requestsLambdaQueryWrapper);
+            showTeachersDTO.setUntreatedRequestsCount(untreatedRequestsCount);
+            showTeachersDTOList.add(showTeachersDTO);
         }
-        addTeacherDTOPage.setRecords(addTeacherDTOList);
-        return ResultMsg.success().add("studentsByPage", addTeacherDTOPage);
+        showTeachersDTOPage.setRecords(showTeachersDTOList);
+        return ResultMsg.success().add("studentsByPage", showTeachersDTOPage);
     }
 
     //修改或者添加老师信息
